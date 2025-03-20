@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { load } from "cheerio";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
+import { Icon } from "@iconify/vue";
 
 const userEventScripts = ref<any[]>([]);
 const clientScripts = ref<any[]>([]);
@@ -72,8 +73,16 @@ const tabs = computed(() => [
 
 <template>
   <div class="card">
+    <div class="px-1 py-2 text-lg font-semibold flex justify-between items-center">
+      <span>NETSUITE RECORD SCRIPTS</span>
+      <span class="gh-icon">
+        <a href="https://github.com/ahmedrangel/netsuite-record-scripts" target="_blank" rel="noopener noreferrer">
+          <Icon icon="simple-icons:github" height="22" />
+        </a>
+      </span>
+    </div>
     <TabGroup>
-      <TabList class="flex align-center justify-center gap-2 pb-3">
+      <TabList class="flex align-center justify-center gap-2 pb-2">
         <template v-for="(tab, i) in tabs" :key="i">
           <Tab v-slot="{ selected }" class="w-full rounded overflow-hidden cursor-pointer border border-purple-300">
             <div class="flex align-center justify-center gap-2 px-2 py-1" :class="selected ? 'bg-purple-100' : 'bg-purple-50'">
@@ -154,6 +163,13 @@ const tabs = computed(() => [
         <TabPanel class="panel">Content 3</TabPanel>
       </TabPanels>
     </TabGroup>
+    <div class="py-3 text-xs">
+      <span>by</span>
+      <span>&nbsp;</span>
+      <span class="hover:underline">
+        <a href="https://github.com/ahmedrangel" target="_blank" rel="noopener noreferrer" class="hover:underline">Ahmed Rangel</a>
+      </span>
+    </div>
   </div>
 </template>
 

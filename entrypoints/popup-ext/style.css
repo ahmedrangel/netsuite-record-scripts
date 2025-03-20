@@ -44,15 +44,20 @@ button:focus-visible {
 }
 
 .panel {
-  height: 500px;
+  max-height: 450px;
   overflow-y: scroll;
 }
 
 #app {
   width: 500px;
+  max-height: 500px;
   margin: 0 auto;
   text-align: center;
-  padding: 1rem 0;
+  padding: 0;
+}
+
+.gh-icon a {
+  color: black!important;
 }
 
 @media (prefers-color-scheme: light) {
