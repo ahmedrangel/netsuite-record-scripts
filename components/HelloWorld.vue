@@ -87,22 +87,28 @@ const tabs = computed(() => [
         <TabPanel class="panel">
           <template v-for="(ue, i) in userEventScripts" :key="i">
             <div class="border-b border-gray-200 p-1 text-start hover:bg-neutral-50">
-              <p class="text-base font-semibold">
-                <span class="hover:underline">
-                  <a :href="ue.url" target="_blank" rel="noopener noreferrer">{{ ue.name }}</a>
-                </span>
-              </p>
-              <p class="mb-1">
-                <span>by&nbsp;</span>
-                <span class="hover:underline">
-                  <a :href="ue.ownerUrl" target="_blank" rel="noopener noreferrer">{{ ue.owner }}</a>
-                </span>
-              </p>
-              <p class="mb-1">
-                <span class="inline-flex items-center rounded-md bg-lime-200 px-2 py-1 text-xs font-medium ring-1 ring-lime-500/10 ring-inset">API v{{ ue.version }}</span>
-                <span>&nbsp;</span>
-                <span class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium ring-1 ring-slate-500/10 ring-inset">{{ ue.status }}</span>
-              </p>
+              <div class="flex justify-between">
+                <div class="text-start">
+                  <p class="text-base font-semibold">
+                    <span class="hover:underline">
+                      <a :href="ue.url" target="_blank" rel="noopener noreferrer">{{ ue.name }}</a>
+                    </span>
+                  </p>
+                  <p class="mb-1">
+                    <span>by&nbsp;</span>
+                    <span class="hover:underline">
+                      <a :href="ue.ownerUrl" target="_blank" rel="noopener noreferrer">{{ ue.owner }}</a>
+                    </span>
+                  </p>
+                </div>
+                <div class="text-end">
+                  <p class="mb-1">
+                    <span class="inline-flex items-center rounded-md bg-lime-200 px-2 py-1 text-xs font-medium ring-1 ring-lime-500/10 ring-inset">v{{ ue.version }}</span>
+                    <span>&nbsp;</span>
+                    <span class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium ring-1 ring-slate-500/10 ring-inset">{{ ue.status }}</span>
+                  </p>
+                </div>
+              </div>
               <ul class="list-disc ps-5">
                 <li v-if="ue.beforeLoad">beforeLoad: <span class="font-semibold">{{ ue.beforeLoad }}</span></li>
                 <li v-if="ue.beforeSubmit">beforeSubmit: <span class="font-semibold">{{ ue.beforeSubmit }}</span></li>
@@ -113,23 +119,29 @@ const tabs = computed(() => [
         </TabPanel>
         <TabPanel class="panel">
           <template v-for="(cs, i) in clientScripts" :key="i">
-            <div class="border-b border-gray-200 p-1 text-start hover:bg-neutral-100">
-              <p class="text-base font-semibold">
-                <span class="hover:underline">
-                  <a :href="cs.url" target="_blank" rel="noopener noreferrer">{{ cs.name }}</a>
-                </span>
-              </p>
-              <p class="mb-1">
-                <span>by&nbsp;</span>
-                <span class="hover:underline">
-                  <a :href="cs.ownerUrl" target="_blank" rel="noopener noreferrer">{{ cs.owner }}</a>
-                </span>
-              </p>
-              <p class="mb-1">
-                <span class="inline-flex items-center rounded-md bg-lime-200 px-2 py-1 text-xs font-medium ring-1 ring-lime-500/10 ring-inset">API v{{ cs.version }}</span>
-                <span>&nbsp;</span>
-                <span class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium ring-1 ring-slate-500/10 ring-inset">{{ cs.status }}</span>
-              </p>
+            <div class="border-b border-gray-200 p-1 text-start hover:bg-neutral-50">
+              <div class="flex justify-between">
+                <div class="text-start">
+                  <p class="text-base font-semibold">
+                    <span class="hover:underline">
+                      <a :href="cs.url" target="_blank" rel="noopener noreferrer">{{ cs.name }}</a>
+                    </span>
+                  </p>
+                  <p class="mb-1">
+                    <span>by&nbsp;</span>
+                    <span class="hover:underline">
+                      <a :href="cs.ownerUrl" target="_blank" rel="noopener noreferrer">{{ cs.owner }}</a>
+                    </span>
+                  </p>
+                </div>
+                <div class="text-end">
+                  <p class="mb-1">
+                    <span class="inline-flex items-center rounded-md bg-lime-200 px-2 py-1 text-xs font-medium ring-1 ring-lime-500/10 ring-inset">v{{ cs.version }}</span>
+                    <span>&nbsp;</span>
+                    <span class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium ring-1 ring-slate-500/10 ring-inset">{{ cs.status }}</span>
+                  </p>
+                </div>
+              </div>
               <ul class="list-disc ps-5">
                 <li v-if="cs.pageInit">pageInit: <span class="font-semibold">{{ cs.pageInit }}</span></li>
                 <li v-if="cs.saveRecord">saveRecord: <span class="font-semibold">{{ cs.saveRecord }}</span></li>
