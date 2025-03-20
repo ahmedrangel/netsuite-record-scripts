@@ -3,6 +3,10 @@ import { load } from "cheerio";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { Icon } from "@iconify/vue";
 
+const loading = ref(false);
+const fetched = ref(false);
+const record = ref("");
+
 const userEventScripts = ref<any[]>([]);
 const clientScripts = ref<any[]>([]);
 const workflows = ref<any[]>([]);
@@ -21,7 +25,12 @@ onMounted(async() => {
     },
   });
   const { recordType, baseURL } = (result[0].result!);
-  if (!recordType || !baseURL) return;
+  if (!recordType || !baseURL) {
+    fetched.value = true;
+    return;
+  }
+  record.value = recordType;
+  loading.value = true;
   const requestResult = await browser.scripting.executeScript({
     target: { tabId },
     args: [recordType, baseURL],
@@ -30,6 +39,8 @@ onMounted(async() => {
       return response.text();
     },
   });
+  loading.value = false;
+  fetched.value = true;
   const html = requestResult[0].result;
   if (!html) return;
   const $ = load(html);
@@ -81,7 +92,21 @@ const tabs = computed(() => [
         </a>
       </span>
     </div>
-    <TabGroup>
+    <div v-if="!record" class="flex justify-center items-center h-32 flex gap-2">
+      <Icon icon="ph:x-circle-duotone" class="text-rose-500" height="32" />
+      <span class="text-lg font-semibold">Not a record page</span>
+    </div>
+    <div v-else-if="!userEventScripts.length && !clientScripts.length && !workflows.length && fetched" class="flex justify-center items-center h-32 flex gap-2">
+      <Icon icon="ph:x-circle-duotone" class="text-rose-500" height="32" />
+      <span class="text-lg font-semibold">No scripts found</span>
+    </div>
+    <div v-else-if="loading">
+      <div class="flex justify-center items-center h-32 flex gap-2">
+        <Icon icon="eos-icons:loading" class="text-purple-600 animate-spin" height="32" />
+        <span class="text-lg font-semibold">Loading...</span>
+      </div>
+    </div>
+    <TabGroup v-else-if="fetched && !loading && (userEventScripts.length || clientScripts.length || workflows.length)">
       <TabList class="flex align-center justify-center gap-1 pb-2">
         <template v-for="(tab, i) in tabs" :key="i">
           <Tab v-slot="{ selected }" class="w-full rounded overflow-hidden cursor-pointer border border-fuchsia-300">
