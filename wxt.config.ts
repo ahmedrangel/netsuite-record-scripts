@@ -9,7 +9,10 @@ export default defineConfig({
     action: {},
     permissions: ['activeTab', 'scripting'],
   },
-  // @ts-expect-error
+  runner: {
+    startUrls: ["https://system.netsuite.com/"]
+  },
+  // @ts-ignore
   vite: () => ({
     plugins: [
       tailwindcss()
