@@ -16,14 +16,13 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0",
-    "ofetch": "^1.4.1",
-    "vue": "^3.5.12"
+    "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.280",
-    "@wxt-dev/module-vue": "^1.0.1",
-    "typescript": "5.6.3",
-    "vue-tsc": "^2.1.10",
+    "@types/chrome": "^0.0.310",
+    "@wxt-dev/module-vue": "^1.0.2",
+    "typescript": "5.8.2",
+    "vue-tsc": "^2.2.8",
     "wxt": "^0.19.29"
   }
 }

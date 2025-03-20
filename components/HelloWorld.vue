@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { $fetch } from 'ofetch';
 import { load } from "cheerio";
 
 const userEventScripts = ref();
