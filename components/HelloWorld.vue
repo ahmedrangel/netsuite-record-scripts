@@ -17,11 +17,17 @@ onMounted(async() => {
       };
     },
   });
-  const { recordType, baseURL } = result[0].result!;
-  if (!recordType) {
-    return;
-  }
-  const html = await $fetch(`${baseURL}/app/common/scripting/scriptedrecord.nl?id=${recordType?.toUpperCase()}&e=T`);
+  const { recordType, baseURL } = (result[0].result!);
+  if (!recordType || !baseURL) return;
+  const requestResult = await browser.scripting.executeScript({
+    target: { tabId },
+    args: [recordType, baseURL],
+    func: async (recordType: string, baseURL: string) => {
+      const response = await fetch(`${baseURL}/app/common/scripting/scriptedrecord.nl?id=${recordType.toUpperCase()}&e=T`)
+      return response.text();
+    },
+  });
+  const html = requestResult[0].result;
   if (!html) return;
   const $ = load(html);
   const userEventsElements = $('#server_splits > tbody > tr.uir-list-row-tr');
