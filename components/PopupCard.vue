@@ -82,20 +82,20 @@ const tabs = computed(() => [
       </span>
     </div>
     <TabGroup>
-      <TabList class="flex align-center justify-center gap-2 pb-2">
+      <TabList class="flex align-center justify-center gap-1 pb-2">
         <template v-for="(tab, i) in tabs" :key="i">
-          <Tab v-slot="{ selected }" class="w-full rounded overflow-hidden cursor-pointer border border-purple-300">
-            <div class="flex align-center justify-center gap-2 px-2 py-1" :class="selected ? 'bg-purple-100' : 'bg-purple-50'">
+          <Tab v-slot="{ selected }" class="w-full rounded overflow-hidden cursor-pointer border border-fuchsia-300">
+            <div class="flex align-center justify-center gap-1 px-2 py-1" :class="selected ? 'bg-fuchsia-100' : 'bg-fuchsia-50'">
               <span class="text-md font-semibold">{{ tab.name }}</span>
-              <span class="px-1 rounded border font-semibold" :class="selected ? 'bg-lime-200 border-lime-600' : 'bg-lime-200 border-lime-500'">{{ tab.count }}</span>
+              <span class="px-1 rounded border font-semibold" :class="selected ? 'bg-lime-200 border-lime-600' : 'bg-lime-100 border-lime-500'">{{ tab.count }}</span>
             </div>
           </Tab>
         </template>
       </TabList>
       <TabPanels>
-        <TabPanel class="panel">
+        <TabPanel class="panel flex flex-col gap-1">
           <template v-for="(ue, i) in userEventScripts" :key="i">
-            <div class="border-b border-gray-200 p-1 text-start hover:bg-neutral-50">
+            <div class="border-b border-gray-200 p-1 text-start bg-white hover:bg-lime-50 rounded">
               <div class="flex justify-between">
                 <div class="text-start">
                   <p class="text-base font-semibold">
@@ -126,9 +126,9 @@ const tabs = computed(() => [
             </div>
           </template>
         </TabPanel>
-        <TabPanel class="panel">
+        <TabPanel class="panel flex flex-col gap-1">
           <template v-for="(cs, i) in clientScripts" :key="i">
-            <div class="border-b border-gray-200 p-1 text-start hover:bg-neutral-50">
+            <div class="border-b border-gray-200 p-1 text-start bg-white hover:bg-lime-50 rounded">
               <div class="flex justify-between">
                 <div class="text-start">
                   <p class="text-base font-semibold">
