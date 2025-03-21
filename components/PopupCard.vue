@@ -38,13 +38,14 @@ onMounted(async() => {
     target: { tabId },
     args: [recordType, baseURL],
     func: async (recordType: string, baseURL: string) => {
-      const response = await fetch(`${baseURL}/app/common/scripting/scriptedrecord.nl?id=${recordType.toUpperCase()}&e=T`)
+      const response = await fetch(`${baseURL}/app/common/scripting/scriptedrecord.nl?id=${recordType.toUpperCase()}&e=T`).catch(() => null);
+      if (!response) return null;
       return response.text();
     },
   });
   loading.value = false;
   fetched.value = true;
-  const html = requestResult[0].result;
+  const html = requestResult?.[0]?.result;
   if (!html) return;
   const $ = load(html);
   const scripts = getScripts($, baseURL);
