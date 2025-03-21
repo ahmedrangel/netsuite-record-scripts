@@ -1,6 +1,25 @@
 # Changelog
 
 
+## v0.1.1
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.0...v0.1.1)
+
+### 🏡 Chore
+
+- Catch fetch ([7517f65](https://github.com/ahmedrangel/netsuite-record-scripts/commit/7517f65))
+- Use src as srcDir ([7bd2aad](https://github.com/ahmedrangel/netsuite-record-scripts/commit/7bd2aad))
+- Add types ([5639d88](https://github.com/ahmedrangel/netsuite-record-scripts/commit/5639d88))
+- Refactor getScripts function and script panel component ([9915a92](https://github.com/ahmedrangel/netsuite-record-scripts/commit/9915a92))
+- Remove unecessary code ([c894eaf](https://github.com/ahmedrangel/netsuite-record-scripts/commit/c894eaf))
+- Use package.json props for manifest info ([4e17b13](https://github.com/ahmedrangel/netsuite-record-scripts/commit/4e17b13))
+- **release:** V0.1.1 ([6d75316](https://github.com/ahmedrangel/netsuite-record-scripts/commit/6d75316))
+- **release:** V0.1.1" ([fe05d96](https://github.com/ahmedrangel/netsuite-record-scripts/commit/fe05d96))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.1.0
 
 
