@@ -4,6 +4,7 @@ import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { Icon } from "@iconify/vue";
 import ScriptPanel from "./ScriptPanel.vue";
 import { getScripts } from "@/utils/helpers";
+import NetsuiteRecordScriptsIcon from "./NetsuiteRecordScriptsIcon.vue";
 
 const loading = ref(false);
 const fetched = ref(false);
@@ -60,10 +61,13 @@ const tabs = computed(() => [
 <template>
   <div class="card">
     <div class="px-1 py-2 text-lg font-semibold flex justify-between items-center">
-      <span>NETSUITE RECORD SCRIPTS</span>
+      <span class="flex justify-start items-center gap-2">
+        <NetsuiteRecordScriptsIcon height="32" />
+        <span>NETSUITE RECORD SCRIPTS</span>
+      </span>
       <span class="gh-icon">
         <a href="https://github.com/ahmedrangel/netsuite-record-scripts" target="_blank" rel="noopener noreferrer">
-          <Icon icon="simple-icons:github" height="22" />
+          <Icon icon="simple-icons:github" height="26" />
         </a>
       </span>
     </div>

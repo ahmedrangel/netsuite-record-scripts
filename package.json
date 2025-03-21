@@ -1,5 +1,6 @@
 {
   "name": "netsuite-record-scripts",
+  "title": "NetSuite Record Scripts",
   "description": "Quickly view the scripts deployed on a NetSuite record",
   "private": true,
   "version": "0.1.0",
