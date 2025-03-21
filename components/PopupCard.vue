@@ -2,6 +2,8 @@
 import { load } from "cheerio";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { Icon } from "@iconify/vue";
+import ScriptPanel from "./ScriptPanel.vue";
+import { getScripts } from "@/utils/helpers";
 
 const loading = ref(false);
 const fetched = ref(false);
@@ -44,41 +46,14 @@ onMounted(async() => {
   const html = requestResult[0].result;
   if (!html) return;
   const $ = load(html);
-  const userEventsElements = $('#server_splits > tbody > tr.uir-list-row-tr');
-  userEventScripts.value = userEventsElements.map((_, el) => {
-    return {
-      name: $(el).find('td:nth-child(2)').text(),
-      url: `${baseURL}${$(el).find('td:nth-child(2) > a').attr('href')}`,
-      owner: $(el).find('td:nth-child(3)').text(),
-      ownerUrl: `${baseURL}${$(el).find('td:nth-child(3) > a').attr('href')}`,
-      version: $(el).find('td:nth-child(4)').text(),
-      status: $(el).find('td:nth-child(8) > span > div > input').attr('value'),
-      beforeLoad: $(el).find('td:nth-child(10)').text(),
-      beforeSubmit: $(el).find('td:nth-child(11)').text(),
-      afterSubmit: $(el).find('td:nth-child(12)').text(),
-    }
-  }).get();
-
-  clientScripts.value = $('#client_splits > tbody > tr.uir-list-row-tr').map((_, el) => {
-    return {
-      name: $(el).find('td:nth-child(2)').text(),
-      url: `${baseURL}${$(el).find('td:nth-child(2) > a').attr('href')}`,
-      owner: $(el).find('td:nth-child(3)').text(),
-      ownerUrl: `${baseURL}${$(el).find('td:nth-child(3) > a').attr('href')}`,
-      version: $(el).find('td:nth-child(4)').text(),
-      status: $(el).find('td:nth-child(8) > span > div > input').attr('value'),
-      pageInit: $(el).find('td:nth-child(10)').text(),
-      saveRecord: $(el).find('td:nth-child(11)').text(),
-      fieldChanged: $(el).find('td:nth-child(12)').text(),
-      validateLine: $(el).find('td:nth-child(13)').text(),
-    }
-  }).get();
+  const scripts = getScripts($, baseURL);
+  [userEventScripts.value, clientScripts.value, workflows.value] = scripts;
 });
 
 const tabs = computed(() => [
-  { name: 'User Event Scripts', count: userEventScripts.value.length },
-  { name: 'Client Scripts', count: clientScripts.value.length },
-  { name: 'Workflows', count: workflows.value.length },
+  { name: 'User Event', count: userEventScripts.value.length },
+  { name: 'Client', count: clientScripts.value.length },
+  { name: 'Workflow', count: workflows.value.length },
 ]);
 </script>
 
@@ -102,90 +77,31 @@ const tabs = computed(() => [
     </div>
     <div v-else-if="loading">
       <div class="flex justify-center items-center h-32 gap-2">
-        <Icon icon="eos-icons:loading" class="text-purple-600 animate-spin" height="32" />
+        <Icon icon="eos-icons:loading" class="text-violet-600 animate-spin" height="32" />
         <span class="text-lg font-semibold">Loading...</span>
       </div>
     </div>
     <TabGroup v-else-if="fetched && !loading && (userEventScripts.length || clientScripts.length || workflows.length)">
       <TabList class="flex align-center justify-center gap-1 pb-2">
         <template v-for="(tab, i) in tabs" :key="i">
-          <Tab v-slot="{ selected }" class="w-full rounded overflow-hidden cursor-pointer border border-fuchsia-300">
-            <div class="flex align-center justify-center gap-1 px-2 py-1" :class="selected ? 'bg-fuchsia-100' : 'bg-fuchsia-50'">
-              <span class="text-md font-semibold">{{ tab.name }}</span>
-              <span class="px-1 rounded border font-semibold" :class="selected ? 'bg-lime-200 border-lime-600' : 'bg-lime-100 border-lime-500'">{{ tab.count }}</span>
+          <Tab v-slot="{ selected }" class="w-full rounded overflow-hidden cursor-pointer border border-violet-900">
+            <div class="flex align-center justify-center gap-1 px-2 py-2" :class="selected ? 'bg-violet-500/30' : 'bg-violet-900/70'">
+              <span class="text-md font-bold" :class="selected ? '' : 'text-slate-50'">{{ tab.name }}</span>
+              <span class="px-1.5 rounded border font-bold bg-lime-200 border-lime-600">{{ tab.count }}</span>
             </div>
           </Tab>
         </template>
       </TabList>
       <TabPanels>
         <TabPanel class="panel flex flex-col gap-1">
-          <template v-for="(ue, i) in userEventScripts" :key="i">
-            <div class="border-b border-gray-200 p-1 text-start bg-white hover:bg-lime-50 rounded">
-              <div class="flex justify-between">
-                <div class="text-start">
-                  <p class="text-base font-semibold">
-                    <span class="hover:underline">
-                      <a :href="ue.url" target="_blank" rel="noopener noreferrer">{{ ue.name }}</a>
-                    </span>
-                  </p>
-                  <p class="mb-1">
-                    <span>by&nbsp;</span>
-                    <span class="hover:underline">
-                      <a :href="ue.ownerUrl" target="_blank" rel="noopener noreferrer">{{ ue.owner }}</a>
-                    </span>
-                  </p>
-                </div>
-                <div class="text-end">
-                  <p class="mb-1">
-                    <span class="inline-flex items-center rounded-md bg-lime-200 px-2 py-1 text-xs font-medium ring-1 ring-lime-500/10 ring-inset">v{{ ue.version }}</span>
-                    <span>&nbsp;</span>
-                    <span class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium ring-1 ring-slate-500/10 ring-inset">{{ ue.status }}</span>
-                  </p>
-                </div>
-              </div>
-              <ul class="list-disc ps-5">
-                <li v-if="ue.beforeLoad">beforeLoad: <span class="font-semibold">{{ ue.beforeLoad }}</span></li>
-                <li v-if="ue.beforeSubmit">beforeSubmit: <span class="font-semibold">{{ ue.beforeSubmit }}</span></li>
-                <li v-if="ue.afterSubmit">afterSubmit: <span class="font-semibold">{{ ue.afterSubmit }}</span></li>
-              </ul>
-            </div>
-          </template>
+          <ScriptPanel :scripts="userEventScripts" />
         </TabPanel>
         <TabPanel class="panel flex flex-col gap-1">
-          <template v-for="(cs, i) in clientScripts" :key="i">
-            <div class="border-b border-gray-200 p-1 text-start bg-white hover:bg-lime-50 rounded">
-              <div class="flex justify-between">
-                <div class="text-start">
-                  <p class="text-base font-semibold">
-                    <span class="hover:underline">
-                      <a :href="cs.url" target="_blank" rel="noopener noreferrer">{{ cs.name }}</a>
-                    </span>
-                  </p>
-                  <p class="mb-1">
-                    <span>by&nbsp;</span>
-                    <span class="hover:underline">
-                      <a :href="cs.ownerUrl" target="_blank" rel="noopener noreferrer">{{ cs.owner }}</a>
-                    </span>
-                  </p>
-                </div>
-                <div class="text-end">
-                  <p class="mb-1">
-                    <span class="inline-flex items-center rounded-md bg-lime-200 px-2 py-1 text-xs font-medium ring-1 ring-lime-500/10 ring-inset">v{{ cs.version }}</span>
-                    <span>&nbsp;</span>
-                    <span class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium ring-1 ring-slate-500/10 ring-inset">{{ cs.status }}</span>
-                  </p>
-                </div>
-              </div>
-              <ul class="list-disc ps-5">
-                <li v-if="cs.pageInit">pageInit: <span class="font-semibold">{{ cs.pageInit }}</span></li>
-                <li v-if="cs.saveRecord">saveRecord: <span class="font-semibold">{{ cs.saveRecord }}</span></li>
-                <li v-if="cs.fieldChanged">fieldChanged: <span class="font-semibold">{{ cs.fieldChanged }}</span></li>
-                <li v-if="cs.validateLine">validateLine: <span class="font-semibold">{{ cs.validateLine }}</span></li>
-              </ul>
-            </div>
-          </template>
+          <ScriptPanel :scripts="clientScripts" />
         </TabPanel>
-        <TabPanel class="panel">Content 3</TabPanel>
+        <TabPanel class="panel flex flex-col gap-1">
+          <ScriptPanel :scripts="workflows" />
+        </TabPanel>
       </TabPanels>
     </TabGroup>
     <div class="py-3 text-xs">

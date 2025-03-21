@@ -28,6 +28,7 @@
     "@types/chrome": "^0.0.310",
     "@typescript-eslint/eslint-plugin": "^8.27.0",
     "@typescript-eslint/parser": "^8.27.0",
+    "@wxt-dev/auto-icons": "^1.0.2",
     "@wxt-dev/module-vue": "^1.0.2",
     "eslint": "^9.22.0",
     "eslint-import-resolver-typescript": "^4.2.2",

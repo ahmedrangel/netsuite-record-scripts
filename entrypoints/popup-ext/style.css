@@ -13,17 +13,17 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  color: var(--color-neutral-800);
-  background-color: var(--color-slate-100)
+  color: var(--color-slate-950);
+  background-color: var(--color-slate-200)
 }
 
 a {
   font-weight: 500;
-  color: var(--color-blue-600);
+  color: var(--color-blue-700);
   text-decoration: inherit;
 }
 a:hover {
-  color: var(--color-blue-500);
+  color: var(--color-blue-600);
 }
 
 body {
@@ -46,11 +46,22 @@ button:focus-visible {
 
 .panel {
   max-height: 450px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border: 0 solid transparent;
+    background-color: color-mix(in oklab, var(--color-violet-900) 70%, transparent);
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: var(--color-violet-200);
+  }
 }
 
 #app {
-  width: 500px;
+  width: 600px;
   max-height: 500px;
   margin: 0 auto;
   text-align: center;
