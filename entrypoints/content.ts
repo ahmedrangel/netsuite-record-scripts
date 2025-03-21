@@ -1,5 +1,5 @@
 export default defineContentScript({
-  matches: ["*://*.app.netsuite.com/*"],
+  matches: ["https://*.netsuite.com/*"],
   main (ctx) {
   }
 });
