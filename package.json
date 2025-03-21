@@ -1,7 +1,7 @@
 {
   "name": "netsuite-record-scripts",
   "title": "NetSuite Record Scripts",
-  "description": "Quickly view the scripts deployed on a NetSuite record",
+  "description": "Instantly view all scripts deployed on a NetSuite record with just one click!",
   "private": true,
   "version": "0.1.0",
   "type": "module",
