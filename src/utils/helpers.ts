@@ -1,7 +1,7 @@
 import type { CheerioAPI } from "cheerio";
 
-export const getScripts = ($: CheerioAPI, baseURL: string) => {
-  const userEvent = $("[id^=\"serverrow\"]").map((_, el) => {
+export const getScripts = ($: CheerioAPI, baseURL: string): NetSuiteScript[][] => {
+  const userEvent = $("[id^=\"serverrow\"]").map((_, el): NetSuiteScript => {
     return {
       name: $(el).find("td:nth-child(2)").text(),
       url: `${baseURL}${$(el).find("td:nth-child(2) > a").attr("href")}`,
@@ -17,7 +17,7 @@ export const getScripts = ($: CheerioAPI, baseURL: string) => {
     };
   }).get();
 
-  const client = $("[id^=\"clientrow\"]").map((_, el) => {
+  const client = $("[id^=\"clientrow\"]").map((_, el): NetSuiteScript => {
     return {
       name: $(el).find("td:nth-child(2)").text(),
       url: `${baseURL}${$(el).find("td:nth-child(2) > a").attr("href")}`,
@@ -34,7 +34,7 @@ export const getScripts = ($: CheerioAPI, baseURL: string) => {
     };
   }).get();
 
-  const workflows = $("[id^=\"workflowsrow\"]").map((_, el) => {
+  const workflows = $("[id^=\"workflowsrow\"]").map((_, el): NetSuiteScript => {
     return {
       name: $(el).find("td:nth-child(1)").text(),
       url: `${baseURL}${$(el).find("td:nth-child(1) > a").attr("href")}`,

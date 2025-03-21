@@ -10,9 +10,9 @@ const loading = ref(false);
 const fetched = ref(false);
 const record = ref("");
 
-const userEventScripts = ref<any[]>([]);
-const clientScripts = ref<any[]>([]);
-const workflows = ref<any[]>([]);
+const userEventScripts = ref<NetSuiteScript[]>([]);
+const clientScripts = ref<NetSuiteScript[]>([]);
+const workflows = ref<NetSuiteScript[]>([]);
 
 onMounted(async() => {
   const currentTab = await browser.tabs.query({ active: true, currentWindow: true });

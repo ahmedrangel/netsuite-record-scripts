@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  scripts: any[];
+  scripts: NetSuiteScript[];
 }>();
 </script>
 
