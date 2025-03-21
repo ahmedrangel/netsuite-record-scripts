@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   extensionApi: "chrome",
   modules: ["@wxt-dev/module-vue", "@wxt-dev/auto-icons"],
+  srcDir: "src",
   manifest: {
     name: "NetSuite Record Scripts",
     description: "Instantly view all scripts deployed on a NetSuite record with just one click!",

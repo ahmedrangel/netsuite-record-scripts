@@ -3,7 +3,7 @@ import { load } from "cheerio";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { Icon } from "@iconify/vue";
 import ScriptPanel from "./ScriptPanel.vue";
-import { getScripts } from "@/utils/helpers";
+import { getScripts } from "../utils/helpers";
 import NetsuiteRecordScriptsIcon from "./NetsuiteRecordScriptsIcon.vue";
 
 const loading = ref(false);
