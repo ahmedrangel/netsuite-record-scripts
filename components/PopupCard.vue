@@ -92,16 +92,16 @@ const tabs = computed(() => [
         </a>
       </span>
     </div>
-    <div v-if="!record" class="flex justify-center items-center h-32 flex gap-2">
-      <Icon icon="ph:x-circle-duotone" class="text-rose-500" height="32" />
+    <div v-if="!record" class="flex justify-center items-center h-32 gap-2">
+      <Icon icon="ph:newspaper-duotone" class="text-rose-500" height="32" />
       <span class="text-lg font-semibold">Not a record page</span>
     </div>
-    <div v-else-if="!userEventScripts.length && !clientScripts.length && !workflows.length && fetched" class="flex justify-center items-center h-32 flex gap-2">
+    <div v-else-if="!userEventScripts.length && !clientScripts.length && !workflows.length && fetched" class="flex justify-center items-center h-32 gap-2">
       <Icon icon="ph:x-circle-duotone" class="text-rose-500" height="32" />
       <span class="text-lg font-semibold">No scripts found</span>
     </div>
     <div v-else-if="loading">
-      <div class="flex justify-center items-center h-32 flex gap-2">
+      <div class="flex justify-center items-center h-32 gap-2">
         <Icon icon="eos-icons:loading" class="text-purple-600 animate-spin" height="32" />
         <span class="text-lg font-semibold">Loading...</span>
       </div>

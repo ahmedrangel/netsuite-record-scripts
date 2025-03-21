@@ -1,13 +1,13 @@
-import { defineConfig } from 'wxt';
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "wxt";
+import tailwindcss from "@tailwindcss/vite";
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
-  extensionApi: 'chrome',
-  modules: ['@wxt-dev/module-vue'],
+  extensionApi: "chrome",
+  modules: ["@wxt-dev/module-vue"],
   manifest: {
     action: {},
-    permissions: ['activeTab', 'scripting'],
+    permissions: ["activeTab", "scripting"]
   },
   runner: {
     startUrls: ["https://system.netsuite.com/"]
@@ -16,6 +16,6 @@ export default defineConfig({
   vite: () => ({
     plugins: [
       tailwindcss()
-    ],
+    ]
   })
 });

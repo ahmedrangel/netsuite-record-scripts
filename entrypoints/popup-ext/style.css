@@ -12,6 +12,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  color: var(--color-neutral-800);
+  background-color: var(--color-slate-100)
 }
 
 a {
@@ -58,15 +61,3 @@ button:focus-visible {
   color: black!important;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: var(--color-neutral-800);
-    background-color: var(--color-slate-100)
-  }
-  a:hover {
-    color: var(--color-blue-500);
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
