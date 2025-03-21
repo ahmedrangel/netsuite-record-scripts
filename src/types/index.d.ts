@@ -3,9 +3,9 @@ export {};
 declare global {
   interface NetSuiteScript {
     name: string;
-    url: string;
+    url?: string;
     owner: string;
-    ownerUrl: string;
+    ownerUrl?: string;
     version?: string;
     status?: string;
     functions: {

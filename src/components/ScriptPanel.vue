@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   scripts: NetSuiteScript[];
+  origin: string;
 }>();
 </script>
 
@@ -11,13 +12,13 @@ defineProps<{
         <div class="text-start">
           <p class="text-base font-semibold">
             <span class="hover:underline">
-              <a :href="s.url" target="_blank" rel="noopener noreferrer">{{ s.name }}</a>
+              <a :href="origin + s.url" target="_blank" rel="noopener noreferrer">{{ s.name }}</a>
             </span>
           </p>
           <p>
             <span>by&nbsp;</span>
             <span class="hover:underline">
-              <a :href="s.ownerUrl" target="_blank" rel="noopener noreferrer">{{ s.owner }}</a>
+              <a :href="origin + s.ownerUrl" target="_blank" rel="noopener noreferrer">{{ s.owner }}</a>
             </span>
           </p>
         </div>

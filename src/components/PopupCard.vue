@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { load } from "cheerio";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { Icon } from "@iconify/vue";
 import ScriptPanel from "./ScriptPanel.vue";
@@ -9,6 +8,7 @@ import NetsuiteRecordScriptsIcon from "./NetsuiteRecordScriptsIcon.vue";
 const loading = ref(false);
 const fetched = ref(false);
 const record = ref("");
+const netsuiteOrigin = ref("");
 
 const userEventScripts = ref<NetSuiteScript[]>([]);
 const clientScripts = ref<NetSuiteScript[]>([]);
@@ -23,22 +23,23 @@ onMounted(async() => {
       const input = document.querySelector('#baserecordtype') as HTMLInputElement;
       return {
         recordType: input?.value || null,
-        baseURL: window.location.origin || null,
+        origin: window.location.origin || null,
       };
     },
   });
-  const { recordType, baseURL } = (result[0].result!);
-  if (!recordType || !baseURL) {
+  const { recordType, origin } = (result[0].result!);
+  if (!recordType || !origin) {
     fetched.value = true;
     return;
   }
+  netsuiteOrigin.value = origin;
   record.value = recordType;
   loading.value = true;
   const requestResult = await browser.scripting.executeScript({
     target: { tabId },
-    args: [recordType, baseURL],
-    func: async (recordType: string, baseURL: string) => {
-      const response = await fetch(`${baseURL}/app/common/scripting/scriptedrecord.nl?id=${recordType.toUpperCase()}&e=T`).catch(() => null);
+    args: [recordType, origin],
+    func: async (recordType: string, origin: string) => {
+      const response = await fetch(`${origin}/app/common/scripting/scriptedrecord.nl?id=${recordType.toUpperCase()}&e=T`).catch(() => null);
       if (!response) return null;
       return response.text();
     },
@@ -47,8 +48,7 @@ onMounted(async() => {
   fetched.value = true;
   const html = requestResult?.[0]?.result;
   if (!html) return;
-  const $ = load(html);
-  const scripts = getScripts($, baseURL);
+  const scripts = getScripts(html);
   [userEventScripts.value, clientScripts.value, workflows.value] = scripts;
 });
 
@@ -99,13 +99,13 @@ const tabs = computed(() => [
       </TabList>
       <TabPanels>
         <TabPanel class="panel flex flex-col gap-1">
-          <ScriptPanel :scripts="userEventScripts" />
+          <ScriptPanel :scripts="userEventScripts" :origin="netsuiteOrigin" />
         </TabPanel>
         <TabPanel class="panel flex flex-col gap-1">
-          <ScriptPanel :scripts="clientScripts" />
+          <ScriptPanel :scripts="clientScripts" :origin="netsuiteOrigin" />
         </TabPanel>
         <TabPanel class="panel flex flex-col gap-1">
-          <ScriptPanel :scripts="workflows" />
+          <ScriptPanel :scripts="workflows" :origin="netsuiteOrigin" />
         </TabPanel>
       </TabPanels>
     </TabGroup>
