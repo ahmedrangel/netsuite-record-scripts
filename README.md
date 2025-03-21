@@ -1,4 +1,4 @@
-# Netsuite Record Scripts
+# Netsuite Record Scripts (Chrome Extension)
 
 Instantly view all scripts deployed on a NetSuite record with just one click!
 
