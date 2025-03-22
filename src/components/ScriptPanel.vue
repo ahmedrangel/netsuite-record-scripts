@@ -31,8 +31,8 @@ defineProps<{
         </div>
       </div>
       <ul class="list-disc ps-5">
-        <template v-for="(f, i) in s.functions" :key="i">
-          <li v-if="f"> {{ i }}: <span class="font-semibold">{{ f }}</span></li>
+        <template v-for="(f, j) in s.functions" :key="j">
+          <li v-if="f"> {{ j }}: <span class="font-semibold">{{ f }}</span></li>
         </template>
       </ul>
     </div>

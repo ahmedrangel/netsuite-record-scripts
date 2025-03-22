@@ -1,25 +1,27 @@
+import { resolve } from "node:path";
 import stylistic from "@stylistic/eslint-plugin";
-import parserTs from "@typescript-eslint/parser";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import importPlugin from "eslint-plugin-import";
+import pluginVue from "eslint-plugin-vue";
+import { defineConfigWithVueTs, vueTsConfigs } from "@vue/eslint-config-typescript";
+import { includeIgnoreFile } from "@eslint/compat";
 
-export default [
+export default defineConfigWithVueTs([
+  vueTsConfigs.recommendedTypeChecked,
+  includeIgnoreFile(resolve(".gitignore")),
   {
-    files: ["**/*.js", "**/*.mjs", "**/*.ts"],
-    ignores: [
-      "node_modules/**/*",
-      ".output/**/*",
-      ".wxt/**/*"
-    ],
+    files: ["**/*.js", "**/*.mjs", "**/*.ts", "**/*.vue"],
     plugins: {
       "@stylistic": stylistic,
       "@typescript-eslint": tsPlugin,
-      "import": importPlugin
-    },
-    languageOptions: {
-      parser: parserTs
+      "import": importPlugin,
+      "vue": pluginVue
     },
     rules: {
+      ...pluginVue.configs.base.rules,
+      ...pluginVue.configs["flat/recommended"].map(c => c.rules).reduce((acc, c) => ({ ...acc, ...c }), {}),
+      ...pluginVue.configs["flat/strongly-recommended"].map(c => c.rules).reduce((acc, c) => ({ ...acc, ...c }), {}),
+      ...pluginVue.configs["flat/essential"].map(c => c.rules).reduce((acc, c) => ({ ...acc, ...c }), {}),
       "no-console": ["error", { allow: ["info", "warn"] }],
       "@stylistic/indent": ["error", 2, { SwitchCase: 1 }],
       "@stylistic/linebreak-style": ["error", process.platform === "win32" ? "windows" : "unix"],
@@ -57,7 +59,10 @@ export default [
       "import/no-self-import": "error",
       "import/order": "error",
       "import/newline-after-import": ["error", { count: 1 }],
-      "@typescript-eslint/consistent-type-imports": "error"
+      "@typescript-eslint/consistent-type-imports": "error",
+      "vue/first-attribute-linebreak": ["error", { singleline: "ignore", multiline: "ignore" }],
+      "vue/max-attributes-per-line": ["error", { singleline: 100 }],
+      "vue/singleline-html-element-content-newline": ["off"]
     }
   }
-];
+]);

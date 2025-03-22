@@ -20,7 +20,6 @@ export default defineConfig({
   autoIcons: {
     grayscaleOnDevelopment: false
   },
-  // @ts-ignore
   vite: () => ({
     plugins: [
       tailwindcss()

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
 import { Icon } from "@iconify/vue";
-import ScriptPanel from "./ScriptPanel.vue";
 import { getScripts } from "../utils/helpers";
+import ScriptPanel from "./ScriptPanel.vue";
 import NetsuiteRecordScriptsIcon from "./NetsuiteRecordScriptsIcon.vue";
 
 const loading = ref(false);
@@ -14,18 +14,18 @@ const userEventScripts = ref<NetSuiteScript[]>([]);
 const clientScripts = ref<NetSuiteScript[]>([]);
 const workflows = ref<NetSuiteScript[]>([]);
 
-onMounted(async() => {
+onMounted(async () => {
   const currentTab = await browser.tabs.query({ active: true, currentWindow: true });
   const tabId = currentTab[0].id || 0;
   const result = await browser.scripting.executeScript({
     target: { tabId },
     func: () => {
-      const input = document.querySelector('#baserecordtype') as HTMLInputElement;
+      const input = document.querySelector("#baserecordtype") as HTMLInputElement;
       return {
         recordType: input?.value || null,
-        origin: window.location.origin || null,
+        origin: window.location.origin || null
       };
-    },
+    }
   });
   const { recordType, origin } = (result[0].result!);
   if (!recordType || !origin) {
@@ -42,7 +42,7 @@ onMounted(async() => {
       const response = await fetch(`${origin}/app/common/scripting/scriptedrecord.nl?id=${recordType.toUpperCase()}&e=T`).catch(() => null);
       if (!response) return null;
       return response.text();
-    },
+    }
   });
   loading.value = false;
   fetched.value = true;
@@ -53,9 +53,9 @@ onMounted(async() => {
 });
 
 const tabs = computed(() => [
-  { name: 'User Event', count: userEventScripts.value.length },
-  { name: 'Client', count: clientScripts.value.length },
-  { name: 'Workflow', count: workflows.value.length },
+  { name: "User Event", count: userEventScripts.value.length },
+  { name: "Client", count: clientScripts.value.length },
+  { name: "Workflow", count: workflows.value.length }
 ]);
 </script>
 
