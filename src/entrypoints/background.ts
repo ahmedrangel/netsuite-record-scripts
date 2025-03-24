@@ -1,13 +1,13 @@
 export default defineBackground(() => {
-  browser.action.onClicked.addListener((tab) => {
-    (async () => {
-      if (!tab.url) return;
-      const url = new URL(tab.url);
-      if (!url.hostname.includes(".app.netsuite.com")) {
-        await browser.action.disable(tab.id);
+  browser.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
+    if (changeInfo.url) {
+      const url = new URL(changeInfo.url);
+      if (!url.hostname.includes(".netsuite.com")) {
+        await browser.action.disable(tabId);
         return;
       }
+      await browser.action.enable(tabId);
       await browser.action.setPopup({ popup: "popup-ext.html" });
-    })().catch(console.info);
+    }
   });
 });
