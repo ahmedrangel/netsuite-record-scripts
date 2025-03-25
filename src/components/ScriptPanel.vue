@@ -1,12 +1,24 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   scripts: NetSuiteScript[];
   origin: string;
+  search: string;
 }>();
+
+const filteredScripts = computed(() => {
+  return props.scripts.filter(s => {
+    const search = props.search.toLowerCase();
+    return s.name.toLowerCase().includes(search) ||
+      s.owner.toLowerCase().includes(search) ||
+      s.status?.toLowerCase().includes(search) ||
+      s.version?.toLowerCase().includes(search) ||
+      Object.values(s.functions).some(f => f?.toLowerCase().includes(search));
+  });
+});
 </script>
 
 <template>
-  <template v-for="(s, i) in scripts" :key="i">
+  <template v-for="(s, i) in filteredScripts" :key="i">
     <div class="border-b border-gray-200 px-3 py-2 text-start bg-slate-50 hover:bg-lime-50 rounded">
       <div class="flex justify-between">
         <div class="text-start">

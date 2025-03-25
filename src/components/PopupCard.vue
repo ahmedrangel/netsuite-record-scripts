@@ -13,6 +13,7 @@ const netsuiteOrigin = ref("");
 const userEventScripts = ref<NetSuiteScript[]>([]);
 const clientScripts = ref<NetSuiteScript[]>([]);
 const workflows = ref<NetSuiteScript[]>([]);
+const searchInput = ref("");
 
 onMounted(async () => {
   const currentTab = await browser.tabs.query({ active: true, currentWindow: true });
@@ -61,9 +62,9 @@ const tabs = computed(() => [
 
 <template>
   <div class="card">
-    <div class="px-1 py-2 text-lg font-semibold flex justify-between items-center">
+    <div class="px-1 py-1.5 text-lg font-semibold flex justify-between items-center">
       <span class="flex justify-start items-center gap-2">
-        <NetsuiteRecordScriptsIcon height="32" />
+        <NetsuiteRecordScriptsIcon height="30" />
         <span>NETSUITE RECORD SCRIPTS</span>
       </span>
       <span class="gh-icon">
@@ -82,34 +83,40 @@ const tabs = computed(() => [
     </div>
     <div v-else-if="loading">
       <div class="flex justify-center items-center h-32 gap-2">
-        <Icon icon="eos-icons:loading" class="text-violet-600 animate-spin" height="32" />
+        <Icon icon="eos-icons:loading" class="text-violet-600" height="32" />
         <span class="text-lg font-semibold">Loading...</span>
       </div>
     </div>
     <TabGroup v-else-if="fetched && !loading && (userEventScripts.length || clientScripts.length || workflows.length)">
-      <TabList class="flex align-center justify-center gap-1 pb-2">
+      <TabList class="flex align-center justify-center gap-1 pb-1">
         <template v-for="(tab, i) in tabs" :key="i">
           <Tab v-slot="{ selected }" class="w-full rounded overflow-hidden cursor-pointer border border-violet-900">
-            <div class="flex align-center justify-center gap-1 px-2 py-2" :class="selected ? 'bg-violet-500/30' : 'bg-violet-900/70'">
+            <div class="flex align-center justify-center gap-1 p-2" :class="selected ? 'bg-violet-500/30' : 'bg-violet-900/70'">
               <span class="text-md font-bold" :class="selected ? '' : 'text-slate-50'">{{ tab.name }}</span>
               <span class="px-1.5 rounded border font-bold bg-lime-200 border-lime-600">{{ tab.count }}</span>
             </div>
           </Tab>
         </template>
       </TabList>
+      <div class="mb-1 flex items-center rounded bg-slate-50 px-1.5 py-1.5 outline-1 -outline-offset-1 outline-violet-900 has-[input:focus-within]:outline-2">
+        <input v-model="searchInput" type="text" name="price" class="block min-w-0 grow pr-3 pl-1 text-xs text-gray-900 placeholder:text-gray-500 focus:outline-none" placeholder="Type to filter...">
+        <div v-if="searchInput" class="grid shrink-0 grid-cols-1 focus-within:relative cursor-pointer" role="button" @click="searchInput = ''">
+          <Icon icon="ph:x-circle-duotone" class="text-rose-600" height="15" width="20" />
+        </div>
+      </div>
       <TabPanels>
         <TabPanel class="panel flex flex-col gap-1">
-          <ScriptPanel :scripts="userEventScripts" :origin="netsuiteOrigin" />
+          <ScriptPanel :scripts="userEventScripts" :origin="netsuiteOrigin" :search="searchInput" />
         </TabPanel>
         <TabPanel class="panel flex flex-col gap-1">
-          <ScriptPanel :scripts="clientScripts" :origin="netsuiteOrigin" />
+          <ScriptPanel :scripts="clientScripts" :origin="netsuiteOrigin" :search="searchInput" />
         </TabPanel>
         <TabPanel class="panel flex flex-col gap-1">
-          <ScriptPanel :scripts="workflows" :origin="netsuiteOrigin" />
+          <ScriptPanel :scripts="workflows" :origin="netsuiteOrigin" :search="searchInput" />
         </TabPanel>
       </TabPanels>
     </TabGroup>
-    <div class="py-3 text-xs">
+    <div class="py-2 text-xs">
       <span>by</span>
       <span>&nbsp;</span>
       <span class="hover:underline">
