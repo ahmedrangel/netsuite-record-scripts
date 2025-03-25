@@ -1,6 +1,31 @@
 # Changelog
 
 
+## v0.1.2
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.1...v0.1.2)
+
+### 🚀 Enhancements
+
+- Add input text filter ([eba998f](https://github.com/ahmedrangel/netsuite-record-scripts/commit/eba998f))
+- Add transition group ([26b8494](https://github.com/ahmedrangel/netsuite-record-scripts/commit/26b8494))
+
+### 🩹 Fixes
+
+- **background:** Properly disable the extension from all pages except the specified one ([04c5f3a](https://github.com/ahmedrangel/netsuite-record-scripts/commit/04c5f3a))
+- Tab activation ([ef64379](https://github.com/ahmedrangel/netsuite-record-scripts/commit/ef64379))
+
+### 🏡 Chore
+
+- **screenshots:** Update screenshots ([77471bd](https://github.com/ahmedrangel/netsuite-record-scripts/commit/77471bd))
+- **docs:** Update readme ([0d56efa](https://github.com/ahmedrangel/netsuite-record-scripts/commit/0d56efa))
+- Update deps ([7010fba](https://github.com/ahmedrangel/netsuite-record-scripts/commit/7010fba))
+- Lint ([d385dc9](https://github.com/ahmedrangel/netsuite-record-scripts/commit/d385dc9))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.1.1
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.0...v0.1.1)
