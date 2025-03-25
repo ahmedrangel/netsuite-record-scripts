@@ -49,3 +49,17 @@ export const getScripts = (html: string): NetSuiteScript[][] => {
   }).get();
   return [userEvent, client, workflows];
 };
+
+export const handlePopup = async (tabId?: number, url?: string) => {
+  if (!url || !tabId) {
+    if (tabId) await browser.action.disable(tabId);
+    return;
+  };
+  const hostname = new URL(url).hostname;
+  if (!hostname.includes(".netsuite.com")) {
+    await browser.action.disable(tabId);
+    return;
+  }
+  await browser.action.enable(tabId);
+  await browser.action.setPopup({ popup: "popup-ext.html" });
+}

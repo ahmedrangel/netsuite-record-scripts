@@ -17,7 +17,7 @@ const searchInput = ref("");
 
 onMounted(async () => {
   const currentTab = await browser.tabs.query({ active: true, currentWindow: true });
-  const tabId = currentTab[0].id || 0;
+  const tabId = currentTab.find(tab => tab.active)?.id!;
   const result = await browser.scripting.executeScript({
     target: { tabId },
     func: () => {
