@@ -47,6 +47,7 @@ button:focus-visible {
 .panel {
   max-height: 450px;
   overflow-y: auto;
+  overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 6px;
   }
