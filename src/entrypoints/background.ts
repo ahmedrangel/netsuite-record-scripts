@@ -18,4 +18,10 @@ export default defineBackground(() => {
       await handlePopup(tabId, tab.url);
     })().then(() => void 0).catch(console.info);
   });
+
+  browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    (async () => {
+      if (changeInfo.status === "complete") await handlePopup(tabId, tab.url);
+    })().then(() => void 0).catch(console.info);
+  });
 });
