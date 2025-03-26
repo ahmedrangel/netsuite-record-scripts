@@ -5,6 +5,7 @@ import { getScripts } from "../utils/helpers";
 import ScriptPanel from "./ScriptPanel.vue";
 import NetsuiteRecordScriptsIcon from "./NetsuiteRecordScriptsIcon.vue";
 
+const tabId = ref<number>();
 const loading = ref(false);
 const fetched = ref(false);
 const record = ref("");
@@ -18,10 +19,10 @@ const searchInput = ref("");
 onMounted(async () => {
   const currentTab = await browser.tabs.query({ active: true, currentWindow: true });
   const tabActive = currentTab.find(tab => tab.active || null);
-  const tabId = tabActive?.id;
-  if (!tabId) return;
+  tabId.value = tabActive?.id;
+  if (!tabId.value) return;
   const result = await browser.scripting.executeScript({
-    target: { tabId },
+    target: { tabId: tabId.value },
     func: () => {
       const input = document.querySelector("#baserecordtype") as HTMLInputElement;
       return {
@@ -39,7 +40,7 @@ onMounted(async () => {
   record.value = recordType;
   loading.value = true;
   const requestResult = await browser.scripting.executeScript({
-    target: { tabId },
+    target: { tabId: tabId.value },
     args: [recordType, origin],
     func: async (recordType: string, origin: string) => {
       const response = await fetch(`${origin}/app/common/scripting/scriptedrecord.nl?id=${recordType.toUpperCase()}&e=T`).catch(() => null);
@@ -107,14 +108,8 @@ const tabs = computed(() => [
         </div>
       </div>
       <TabPanels>
-        <TabPanel class="panel flex flex-col gap-1">
-          <ScriptPanel :scripts="userEventScripts" :origin="netsuiteOrigin" :search="searchInput" />
-        </TabPanel>
-        <TabPanel class="panel flex flex-col gap-1">
-          <ScriptPanel :scripts="clientScripts" :origin="netsuiteOrigin" :search="searchInput" />
-        </TabPanel>
-        <TabPanel class="panel flex flex-col gap-1">
-          <ScriptPanel :scripts="workflows" :origin="netsuiteOrigin" :search="searchInput" />
+        <TabPanel v-for="(scripts, i) of [userEventScripts, clientScripts, workflows]" :key="i" class="panel flex flex-col gap-1">
+          <ScriptPanel :scripts="scripts" :origin="netsuiteOrigin" :search="searchInput" :tab-id="tabId" />
         </TabPanel>
       </TabPanels>
     </TabGroup>
