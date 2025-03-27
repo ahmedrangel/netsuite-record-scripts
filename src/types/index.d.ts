@@ -2,6 +2,7 @@ export {};
 
 declare global {
   interface NetSuiteScript {
+    type: "userevent" | "client" | "workflow";
     name: string;
     url?: string;
     owner: string;
