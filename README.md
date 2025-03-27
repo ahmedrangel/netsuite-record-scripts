@@ -9,6 +9,7 @@ With this extension, simply click while on a NetSuite record to quickly see all 
 - A search bar to filter scripts easily
 - Clickable script names for quick access
 - Clickable owner
+- Open script editor
 - Functions used in each script
 - Script status
 - SuiteScript API version
