@@ -57,7 +57,7 @@ export const getEditScriptURL = (html: string) => {
   const scriptEditUrl = scriptOnClick.match(/nlOpenWindow\('([^']+)'/)?.[1];
   if (!scriptEditUrl) return;
   return scriptEditUrl;
-}
+};
 
 export const handlePopup = async (tabId?: number, url?: string) => {
   if (!url || !tabId) {
