@@ -1,6 +1,33 @@
 # Changelog
 
 
+## v0.1.3
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.2...v0.1.3)
+
+### 🚀 Enhancements
+
+- Add open script editing button ([f141b25](https://github.com/ahmedrangel/netsuite-record-scripts/commit/f141b25))
+
+### 🩹 Fixes
+
+- **background:** Popup handler ([1c1baa5](https://github.com/ahmedrangel/netsuite-record-scripts/commit/1c1baa5))
+
+### 🏡 Chore
+
+- **docs:** Fix typo ([4866104](https://github.com/ahmedrangel/netsuite-record-scripts/commit/4866104))
+- Update deps ([da0dfd7](https://github.com/ahmedrangel/netsuite-record-scripts/commit/da0dfd7))
+- Add title ([be4c92a](https://github.com/ahmedrangel/netsuite-record-scripts/commit/be4c92a))
+- Lint ([20b8483](https://github.com/ahmedrangel/netsuite-record-scripts/commit/20b8483))
+- Exclude workflows for open script editor button ([7368465](https://github.com/ahmedrangel/netsuite-record-scripts/commit/7368465))
+- Update screenshots ([eb03979](https://github.com/ahmedrangel/netsuite-record-scripts/commit/eb03979))
+- Update screenshot ([dea12c7](https://github.com/ahmedrangel/netsuite-record-scripts/commit/dea12c7))
+- **docs:** Update readme ([3ae018a](https://github.com/ahmedrangel/netsuite-record-scripts/commit/3ae018a))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.1.2
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.1...v0.1.2)
