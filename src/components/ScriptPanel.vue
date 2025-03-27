@@ -53,7 +53,7 @@ const openEdit = async (url: string) => {
               <span class="hover:underline">
                 <a :href="origin + s.url" target="_blank" rel="noopener noreferrer">{{ s.name }}</a>
               </span>
-              <span v-if="s.url" class="text-gray-600 bg-lime-200 hover:bg-lime-300 p-0.5 rounded cursor-pointer text-xs font-medium ring-1 ring-lime-600" @click="openEdit(s.url)">
+              <span v-if="s.url" class="text-gray-600 bg-lime-200 hover:bg-lime-300 p-0.5 rounded cursor-pointer text-xs font-medium ring-1 ring-lime-600" @click="openEdit(s.url)" title="Open script editor">
                 <Icon v-if="openingStates[s.url]" icon="eos-icons:loading" height="16" />
                 <Icon v-else icon="ph:pencil-bold" height="16" />
               </span>
