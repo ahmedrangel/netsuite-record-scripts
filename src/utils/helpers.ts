@@ -70,7 +70,6 @@ export const handlePopup = async (tabId?: number) => {
     func: () => window.location.href
   }).catch(() => null);
   const url = result?.[0]?.result;
-  console.info(url);
 
   if (!url) return await browser.action.disable();
 
