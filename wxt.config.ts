@@ -12,7 +12,8 @@ export default defineConfig({
     description: pkg.description,
     version: pkg.version,
     action: {},
-    permissions: ["tabs", "activeTab", "scripting"]
+    permissions: ["activeTab", "scripting"],
+    host_permissions: ["https://*.netsuite.com/*"]
   },
   runner: {
     startUrls: ["https://system.netsuite.com/"]

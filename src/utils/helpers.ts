@@ -62,16 +62,21 @@ export const getEditScriptURL = (html: string) => {
   return scriptEditUrl;
 };
 
-export const handlePopup = async (tabId?: number, url?: string) => {
-  if (!url || !tabId) {
-    if (tabId) await browser.action.disable(tabId);
-    return;
-  }
+export const handlePopup = async (tabId?: number) => {
+  if (!tabId) return await browser.action.disable();
+
+  const result = await browser.scripting.executeScript({
+    target: { tabId: tabId },
+    func: () => window.location.href
+  }).catch(() => null);
+  const url = result?.[0]?.result;
+  console.info(url);
+
+  if (!url) return await browser.action.disable();
+
   const hostname = new URL(url).hostname;
-  if (!hostname.includes(".netsuite.com")) {
-    await browser.action.disable(tabId);
-    return;
-  }
-  await browser.action.enable(tabId);
+  if (!hostname.includes(".netsuite.com")) return await browser.action.disable();
+
+  await browser.action.enable();
   await browser.action.setPopup({ popup: "popup-ext.html" });
 };
