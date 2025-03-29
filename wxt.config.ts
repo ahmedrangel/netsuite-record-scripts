@@ -4,7 +4,6 @@ import pkg from "./package.json" with { type: "json" };
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
-  extensionApi: "chrome",
   modules: ["@wxt-dev/module-vue", "@wxt-dev/auto-icons"],
   srcDir: "src",
   manifest: {
@@ -15,7 +14,7 @@ export default defineConfig({
     permissions: ["activeTab", "scripting"],
     host_permissions: ["https://*.netsuite.com/*"]
   },
-  runner: {
+  webExt: {
     startUrls: ["https://system.netsuite.com/"]
   },
   autoIcons: {

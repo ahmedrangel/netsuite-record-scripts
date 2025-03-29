@@ -27,18 +27,18 @@
   "devDependencies": {
     "@eslint/compat": "^1.2.7",
     "@stylistic/eslint-plugin": "^4.2.0",
-    "@types/chrome": "^0.0.312",
+    "@types/chrome": "^0.0.313",
     "@typescript-eslint/eslint-plugin": "^8.28.0",
     "@vue/eslint-config-typescript": "^14.5.0",
     "@wxt-dev/auto-icons": "^1.0.2",
     "@wxt-dev/module-vue": "^1.0.2",
     "changelogen": "^0.6.1",
     "eslint": "^9.23.0",
-    "eslint-import-resolver-typescript": "^4.2.5",
+    "eslint-import-resolver-typescript": "^4.2.7",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-vue": "^10.0.0",
     "typescript": "5.8.2",
     "vue-tsc": "^2.2.8",
-    "wxt": "^0.19.29"
+    "wxt": "^0.20.0"
   }
 }
