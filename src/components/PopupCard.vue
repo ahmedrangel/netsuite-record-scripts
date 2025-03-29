@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
 import { Icon } from "@iconify/vue";
-import { getScripts } from "../utils/helpers";
+import { getCurrentTabId, getScripts } from "../utils/helpers";
 import ScriptPanel from "./ScriptPanel.vue";
 import NetsuiteRecordScriptsIcon from "./NetsuiteRecordScriptsIcon.vue";
 
@@ -17,9 +17,7 @@ const workflows = ref<NetSuiteScript[]>([]);
 const searchInput = ref("");
 
 onMounted(async () => {
-  const currentTab = await browser.tabs.query({ active: true, currentWindow: true });
-  const tabActive = currentTab.find(tab => tab.active || null);
-  tabId.value = tabActive?.id;
+  tabId.value = await getCurrentTabId();
   if (!tabId.value) return;
   const result = await browser.scripting.executeScript({
     target: { tabId: tabId.value },

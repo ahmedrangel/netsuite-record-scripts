@@ -62,6 +62,12 @@ export const getEditScriptURL = (html: string) => {
   return scriptEditUrl;
 };
 
+export const getCurrentTabId = async () => {
+  const currentTab = await browser.tabs.query({ active: true, currentWindow: true });
+  const tabActive = currentTab.find(tab => tab.active || null);
+  return tabActive?.id;
+};
+
 export const handlePopup = async (tabId?: number) => {
   if (!tabId) return await browser.action.disable();
 
