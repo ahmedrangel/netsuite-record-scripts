@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.4
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.3...v0.1.4)
+
+### 🩹 Fixes
+
+- Remove tabs premission to avoid read browser history alert ([77c6cbe](https://github.com/ahmedrangel/netsuite-record-scripts/commit/77c6cbe))
+
+### 💅 Refactors
+
+- Wxt 0.20 migration ([ddbbe73](https://github.com/ahmedrangel/netsuite-record-scripts/commit/ddbbe73))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.1.3
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.2...v0.1.3)
