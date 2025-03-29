@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.1.5
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.4...v0.1.5)
+
+### 💅 Refactors
+
+- Separate get current tab id function ([76944ce](https://github.com/ahmedrangel/netsuite-record-scripts/commit/76944ce))
+
+### 🏡 Chore
+
+- Remove log ([3b3df46](https://github.com/ahmedrangel/netsuite-record-scripts/commit/3b3df46))
+- Optimize icon ([9086fdb](https://github.com/ahmedrangel/netsuite-record-scripts/commit/9086fdb))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.1.4
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.3...v0.1.4)
