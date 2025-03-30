@@ -34,7 +34,7 @@
     "@wxt-dev/module-vue": "^1.0.2",
     "changelogen": "^0.6.1",
     "eslint": "^9.23.0",
-    "eslint-import-resolver-typescript": "^4.2.7",
+    "eslint-import-resolver-typescript": "^4.3.1",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-vue": "^10.0.0",
     "typescript": "5.8.2",
