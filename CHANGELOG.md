@@ -1,6 +1,20 @@
 # Changelog
 
 
+## v0.1.6
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.5...v0.1.6)
+
+### 🏡 Chore
+
+- Update deps ([b0e0f8c](https://github.com/ahmedrangel/netsuite-record-scripts/commit/b0e0f8c))
+- Change open editor icon ([44115bc](https://github.com/ahmedrangel/netsuite-record-scripts/commit/44115bc))
+- Update screenshots ([f4b3259](https://github.com/ahmedrangel/netsuite-record-scripts/commit/f4b3259))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.1.5
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.4...v0.1.5)
