@@ -55,7 +55,7 @@ const openEdit = async (url: string) => {
               </span>
               <span v-if="s.url && s.type !== 'workflow'" class="text-gray-600 bg-lime-200 hover:bg-lime-300 p-0.5 rounded cursor-pointer text-xs font-medium ring-1 ring-lime-600" title="Open script editor" @click="openEdit(s.url)">
                 <Icon v-if="openingStates[s.url]" icon="eos-icons:loading" height="16" />
-                <Icon v-else icon="ph:pencil-bold" height="16" />
+                <Icon v-else icon="ph:note-pencil-bold" height="16" />
               </span>
             </p>
             <p>
