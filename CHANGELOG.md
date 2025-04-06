@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.1.7
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.6...v0.1.7)
+
+### 🏡 Chore
+
+- Update deps ([ea67b1e](https://github.com/ahmedrangel/netsuite-record-scripts/commit/ea67b1e))
+- Improve filter transition ([3c47024](https://github.com/ahmedrangel/netsuite-record-scripts/commit/3c47024))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.1.6
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.5...v0.1.6)
