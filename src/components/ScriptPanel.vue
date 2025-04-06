@@ -45,7 +45,7 @@ const openEdit = async (url: string) => {
 
 <template>
   <TransitionGroup name="list">
-    <template v-for="(s, i) in filteredScripts" :key="i">
+    <template v-for="s in filteredScripts" :key="`${s.type} ${s.name} ${s.owner}`">
       <div class="border-b border-gray-200 px-3 py-2 text-start bg-slate-50 hover:bg-lime-50 rounded">
         <div class="flex justify-between">
           <div class="text-start">
@@ -84,6 +84,7 @@ const openEdit = async (url: string) => {
 </template>
 
 <style scoped>
+.list-move,
 .list-enter-active,
 .list-leave-active {
   transition: all 0.2s ease;
@@ -92,5 +93,12 @@ const openEdit = async (url: string) => {
 .list-leave-to {
   opacity: 0;
   transform: translateX(30px);
+}
+.list-leave-active {
+  position: absolute;
+  width: 0%;
+  left: 50%;
+  top: 100%;
+  transform: translateX(100%);
 }
 </style>

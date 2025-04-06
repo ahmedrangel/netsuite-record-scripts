@@ -105,7 +105,7 @@ const tabs = computed(() => [
           <Icon icon="ph:x-circle-duotone" class="text-rose-600" height="15" width="20" />
         </div>
       </div>
-      <TabPanels>
+      <TabPanels class="relative overflow-hidden">
         <TabPanel v-for="(scripts, i) of [userEventScripts, clientScripts, workflows]" :key="i" class="panel flex flex-col gap-1">
           <ScriptPanel :scripts="scripts" :origin="netsuiteOrigin" :search="searchInput" :tab-id="tabId" />
         </TabPanel>
