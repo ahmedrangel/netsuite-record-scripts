@@ -1,6 +1,25 @@
 # Changelog
 
 
+## v0.1.8
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.7...v0.1.8)
+
+### 🩹 Fixes
+
+- Improve tab behavior on browser focus changed ([97289e2](https://github.com/ahmedrangel/netsuite-record-scripts/commit/97289e2))
+- Open editor as a popup ([3d6751b](https://github.com/ahmedrangel/netsuite-record-scripts/commit/3d6751b))
+
+### 🏡 Chore
+
+- Update deps ([35b1b08](https://github.com/ahmedrangel/netsuite-record-scripts/commit/35b1b08))
+- Update pnpm-lock ([2690c50](https://github.com/ahmedrangel/netsuite-record-scripts/commit/2690c50))
+- Focus filter input on open and on tab click ([8f93b77](https://github.com/ahmedrangel/netsuite-record-scripts/commit/8f93b77))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.1.7
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.6...v0.1.7)
