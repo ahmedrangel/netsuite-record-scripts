@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.1.9
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.8...v0.1.9)
+
+### 💅 Refactors
+
+- Adjust background events code ([471f7dd](https://github.com/ahmedrangel/netsuite-record-scripts/commit/471f7dd))
+
+### 🏡 Chore
+
+- **release:** V0.1.8 ([1fa64d3](https://github.com/ahmedrangel/netsuite-record-scripts/commit/1fa64d3))
+- Lint ([f59ca80](https://github.com/ahmedrangel/netsuite-record-scripts/commit/f59ca80))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.1.8
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.7...v0.1.8)
