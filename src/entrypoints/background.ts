@@ -19,4 +19,12 @@ export default defineBackground(() => {
       if (changeInfo.status === "complete") await handlePopup(tabId);
     })().then(() => void 0).catch(console.info);
   });
+
+  browser.windows.onFocusChanged.addListener((windowId) => {
+    (async () => {
+      if (windowId === browser.windows.WINDOW_ID_NONE) return;
+      const tabId = await getCurrentTabId();
+      await handlePopup(tabId);
+    })().then(() => void 0).catch(console.info);
+  });
 });
