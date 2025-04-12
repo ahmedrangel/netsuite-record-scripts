@@ -15,6 +15,7 @@ const userEventScripts = ref<NetSuiteScript[]>([]);
 const clientScripts = ref<NetSuiteScript[]>([]);
 const workflows = ref<NetSuiteScript[]>([]);
 const searchInput = ref("");
+const filterInput = useTemplateRef("filterInput");
 
 onMounted(async () => {
   tabId.value = await getCurrentTabId();
@@ -59,6 +60,12 @@ const tabs = computed(() => [
   { name: "Client", count: clientScripts.value.length },
   { name: "Workflow", count: workflows.value.length }
 ]);
+
+watchEffect(() => {
+  if (filterInput.value) {
+    filterInput.value.focus();
+  }
+});
 </script>
 
 <template>
@@ -91,7 +98,7 @@ const tabs = computed(() => [
     <TabGroup v-else-if="fetched && !loading && (userEventScripts.length || clientScripts.length || workflows.length)">
       <TabList class="flex align-center justify-center gap-1 pb-1">
         <template v-for="(tab, i) in tabs" :key="i">
-          <Tab v-slot="{ selected }" class="w-full rounded overflow-hidden cursor-pointer border border-violet-900">
+          <Tab v-slot="{ selected }" class="w-full rounded overflow-hidden cursor-pointer border border-violet-900" @click="filterInput?.focus()">
             <div class="flex align-center justify-center gap-1 p-2" :class="selected ? 'bg-violet-500/30' : 'bg-violet-900/70'">
               <span class="text-md font-bold" :class="selected ? '' : 'text-slate-50'">{{ tab.name }}</span>
               <span class="px-1.5 rounded border font-bold bg-lime-200 border-lime-600">{{ tab.count }}</span>
@@ -100,7 +107,7 @@ const tabs = computed(() => [
         </template>
       </TabList>
       <div class="mb-1 flex items-center rounded bg-slate-50 px-1.5 py-1.5 outline-1 -outline-offset-1 outline-violet-900 has-[input:focus-within]:outline-2">
-        <input v-model="searchInput" type="text" name="price" class="block min-w-0 grow pr-3 pl-1 text-xs text-gray-900 placeholder:text-gray-500 focus:outline-none" placeholder="Type to filter...">
+        <input v-model="searchInput" ref="filterInput" type="text" name="filter" class="block min-w-0 grow pr-3 pl-1 text-xs text-gray-900 placeholder:text-gray-500 focus:outline-none" placeholder="Type to filter...">
         <div v-if="searchInput" class="grid shrink-0 grid-cols-1 focus-within:relative cursor-pointer" role="button" @click="searchInput = ''">
           <Icon icon="ph:x-circle-duotone" class="text-rose-600" height="15" width="20" />
         </div>
