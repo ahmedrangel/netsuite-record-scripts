@@ -38,7 +38,15 @@ const openEdit = async (url: string) => {
   if (!scriptInfo) return openingStates.value[url] = false;
   const scriptEditUrl = getEditScriptURL(scriptInfo);
   if (!scriptEditUrl) return openingStates.value[url] = false;
-  await browser.tabs.create({ url: props.origin + scriptEditUrl });
+  const editorUrl = props.origin + scriptEditUrl;
+  await browser.scripting.executeScript({
+    args: [editorUrl],
+    target: { tabId: props.tabId },
+    func: async (url: string) => {
+      const screenHeight = window.screen.height * 0.8;
+      window.open(url, "popupWindow", `width=800,height=${screenHeight},scrollbars=yes,resizable=yes"`);
+    }
+  });
   openingStates.value[url] = false;
 };
 </script>
