@@ -42,7 +42,7 @@ const openEdit = async (url: string) => {
   await browser.scripting.executeScript({
     args: [editorUrl],
     target: { tabId: props.tabId },
-    func: async (url: string) => {
+    func: (url: string) => {
       const screenHeight = window.screen.height * 0.8;
       window.open(url, "popupWindow", `width=800,height=${screenHeight},scrollbars=yes,resizable=yes"`);
     }

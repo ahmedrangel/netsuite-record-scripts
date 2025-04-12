@@ -107,7 +107,7 @@ watchEffect(() => {
         </template>
       </TabList>
       <div class="mb-1 flex items-center rounded bg-slate-50 px-1.5 py-1.5 outline-1 -outline-offset-1 outline-violet-900 has-[input:focus-within]:outline-2">
-        <input v-model="searchInput" ref="filterInput" type="text" name="filter" class="block min-w-0 grow pr-3 pl-1 text-xs text-gray-900 placeholder:text-gray-500 focus:outline-none" placeholder="Type to filter...">
+        <input ref="filterInput" v-model="searchInput" type="text" name="filter" class="block min-w-0 grow pr-3 pl-1 text-xs text-gray-900 placeholder:text-gray-500 focus:outline-none" placeholder="Type to filter...">
         <div v-if="searchInput" class="grid shrink-0 grid-cols-1 focus-within:relative cursor-pointer" role="button" @click="searchInput = ''">
           <Icon icon="ph:x-circle-duotone" class="text-rose-600" height="15" width="20" />
         </div>
