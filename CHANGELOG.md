@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.1.10
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.9...v0.1.10)
+
+### 🚀 Enhancements
+
+- Add custom record button + slightly adjust styles ([3112474](https://github.com/ahmedrangel/netsuite-record-scripts/commit/3112474))
+
+### 🏡 Chore
+
+- Update deps ([3e61a93](https://github.com/ahmedrangel/netsuite-record-scripts/commit/3e61a93))
+- Update pnpm-lock ([83331a7](https://github.com/ahmedrangel/netsuite-record-scripts/commit/83331a7))
+- Remove unnecessary then void ([c344958](https://github.com/ahmedrangel/netsuite-record-scripts/commit/c344958))
+- **helpers:** Directly return mapped objects ([525a2bc](https://github.com/ahmedrangel/netsuite-record-scripts/commit/525a2bc))
+- Open script editor popup with full height ([6aaee01](https://github.com/ahmedrangel/netsuite-record-scripts/commit/6aaee01))
+- Update screenshots ([a5f5f8e](https://github.com/ahmedrangel/netsuite-record-scripts/commit/a5f5f8e))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.1.9
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.8...v0.1.9)
