@@ -74,7 +74,7 @@ const openEdit = async (url: string) => {
             </p>
           </div>
           <div class="text-end">
-            <p class="text-sm font-semibold flex items-center gap-0.5">
+            <p class="font-semibold flex items-center gap-1">
               <span v-if="s.deployed === true" class="inline-flex items-center rounded-md bg-lime-200 px-1 py-1 text-xs font-medium ring-1 ring-lime-500 ring-inset" title="Deployed">
                 <Icon icon="ph:check-bold" height="16" width="16" />
               </span>
