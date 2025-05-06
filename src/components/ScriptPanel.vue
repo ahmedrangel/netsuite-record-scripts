@@ -57,11 +57,11 @@ const openEdit = async (url: string) => {
       <div class="border-b border-gray-200 px-3 py-2 text-start bg-slate-50 hover:bg-lime-50 rounded">
         <div class="flex justify-between">
           <div class="text-start">
-            <p class="text-base font-semibold flex items-center gap-2">
+            <p class="text-base font-semibold flex items-center gap-1">
               <span class="hover:underline">
                 <a :href="origin + s.url" target="_blank" rel="noopener noreferrer">{{ s.name }}</a>
               </span>
-              <span v-if="s.url && s.type !== 'workflow'" class="text-gray-600 bg-lime-200 hover:bg-lime-300 p-0.5 rounded cursor-pointer text-xs font-medium ring-1 ring-lime-600" title="Open script editor" @click="openEdit(s.url)">
+              <span v-if="s.url && s.type !== 'workflow'" class="text-gray-700 bg-lime-200 hover:bg-lime-300 p-0.5 rounded cursor-pointer text-xs font-medium ring-1 ring-lime-500 ring-inset" title="Open script editor" @click="openEdit(s.url)">
                 <Icon v-if="openingStates[s.url]" icon="eos-icons:loading" height="16" />
                 <Icon v-else icon="ph:note-pencil-bold" height="16" />
               </span>
@@ -74,12 +74,12 @@ const openEdit = async (url: string) => {
             </p>
           </div>
           <div class="text-end">
-            <p class="text-sm font-semibold flex items-center gap-1">
-              <span v-if="s.deployed === true" class="inline-flex items-center rounded-md bg-lime-100 px-1 py-1 text-xs font-medium ring-1 ring-lime-500/100 ring-inset" title="Deployed">
-                <Icon icon="ph:check-bold" height="14" />
+            <p class="text-sm font-semibold flex items-center gap-0.5">
+              <span v-if="s.deployed === true" class="inline-flex items-center rounded-md bg-lime-200 px-1 py-1 text-xs font-medium ring-1 ring-lime-500 ring-inset" title="Deployed">
+                <Icon icon="ph:check-bold" height="16" width="16" />
               </span>
-              <span class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium ring-1 ring-slate-400/100 ring-inset" :title="s.status">{{ s.status }}</span>
-              <span v-if="s.version" class="inline-flex items-center rounded-md bg-lime-200 px-2 py-1 text-xs font-medium ring-1 ring-lime-500" :title="`API v${s.version}`">API v{{ s.version }}</span>
+              <span class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium ring-1 ring-slate-400 ring-inset" :title="s.status">{{ s.status }}</span>
+              <span v-if="s.version" class="inline-flex items-center rounded-md bg-lime-200 px-2 py-1 text-xs font-medium ring-1 ring-lime-500 ring-inset" :title="`API v${s.version}`">API v{{ s.version }}</span>
             </p>
           </div>
         </div>
