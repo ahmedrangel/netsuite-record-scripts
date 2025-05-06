@@ -74,10 +74,12 @@ const openEdit = async (url: string) => {
             </p>
           </div>
           <div class="text-end">
-            <p>
-              <span class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium ring-1 ring-slate-400/100 ring-inset">{{ s.status }}</span>
-              <span v-if="s.version">&nbsp;</span>
-              <span v-if="s.version" class="inline-flex items-center rounded-md bg-lime-200 px-2 py-1 text-xs font-medium ring-1 ring-lime-500">API v{{ s.version }}</span>
+            <p class="text-sm font-semibold flex items-center gap-1">
+              <span v-if="s.deployed === true" class="inline-flex items-center rounded-md bg-lime-100 px-1 py-1 text-xs font-medium ring-1 ring-lime-500/100 ring-inset" title="Deployed">
+                <Icon icon="ph:check-bold" height="14" />
+              </span>
+              <span class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium ring-1 ring-slate-400/100 ring-inset" :title="s.status">{{ s.status }}</span>
+              <span v-if="s.version" class="inline-flex items-center rounded-md bg-lime-200 px-2 py-1 text-xs font-medium ring-1 ring-lime-500" :title="`API v${s.version}`">API v{{ s.version }}</span>
             </p>
           </div>
         </div>

@@ -9,6 +9,7 @@ declare global {
     ownerUrl?: string;
     version?: string;
     status?: string;
+    deployed?: boolean;
     functions: {
       [key: string]: string | undefined;
     };

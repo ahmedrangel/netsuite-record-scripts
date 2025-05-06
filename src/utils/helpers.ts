@@ -10,6 +10,7 @@ export const getScripts = (html: string): NetSuiteScript[][] => {
     ownerUrl: $(el).find("td:nth-child(3) > a").attr("href"),
     version: $(el).find("td:nth-child(4)").text(),
     status: $(el).find("td:nth-child(8) * input").attr("value"),
+    deployed: $(el).find("td:nth-child(9) > span").attr("class")?.includes("checkbox_ck") ? true : false,
     functions: {
       beforeLoad: $(el).find("td:nth-child(10)").text(),
       beforeSubmit: $(el).find("td:nth-child(11)").text(),
@@ -25,6 +26,7 @@ export const getScripts = (html: string): NetSuiteScript[][] => {
     ownerUrl: $(el).find("td:nth-child(3) > a").attr("href"),
     version: $(el).find("td:nth-child(4)").text(),
     status: $(el).find("td:nth-child(8) * input").attr("value"),
+    deployed: $(el).find("td:nth-child(9) > span").attr("class")?.includes("checkbox_ck") ? true : false,
     functions: {
       pageInit: $(el).find("td:nth-child(10)").text(),
       saveRecord: $(el).find("td:nth-child(11)").text(),
