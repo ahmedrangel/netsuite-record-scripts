@@ -1,6 +1,31 @@
 # Changelog
 
 
+## v0.1.11
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.10...v0.1.11)
+
+### 🚀 Enhancements
+
+- Add a check badge for deployed scripts ([b55cf39](https://github.com/ahmedrangel/netsuite-record-scripts/commit/b55cf39))
+
+### 🩹 Fixes
+
+- Disable open script editor button on opening ([47ad6b9](https://github.com/ahmedrangel/netsuite-record-scripts/commit/47ad6b9))
+
+### 🏡 Chore
+
+- **release:** V0.1.10 ([1f73ebc](https://github.com/ahmedrangel/netsuite-record-scripts/commit/1f73ebc))
+- Update screenshots ([3459e05](https://github.com/ahmedrangel/netsuite-record-scripts/commit/3459e05))
+- Update screenshots" ([acdc146](https://github.com/ahmedrangel/netsuite-record-scripts/commit/acdc146))
+- Update deps ([5e7eb55](https://github.com/ahmedrangel/netsuite-record-scripts/commit/5e7eb55))
+- Adjust styling ([25d2647](https://github.com/ahmedrangel/netsuite-record-scripts/commit/25d2647))
+- Adjust gap ([96d752b](https://github.com/ahmedrangel/netsuite-record-scripts/commit/96d752b))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.1.10
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.9...v0.1.10)
