@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.1.12
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.11...v0.1.12)
+
+### 🚀 Enhancements
+
+- Add not deployed badge + move deployed badge ([86e436c](https://github.com/ahmedrangel/netsuite-record-scripts/commit/86e436c))
+
+### 🏡 Chore
+
+- Lint ([e6b9f0c](https://github.com/ahmedrangel/netsuite-record-scripts/commit/e6b9f0c))
+- **package:** Add package manager ([4d3b464](https://github.com/ahmedrangel/netsuite-record-scripts/commit/4d3b464))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.1.11
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.10...v0.1.11)
