@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.1.13
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.12...v0.1.13)
+
+### 🩹 Fixes
+
+- **eslint:** Rule ([2c5be36](https://github.com/ahmedrangel/netsuite-record-scripts/commit/2c5be36))
+
+### 🏡 Chore
+
+- Update deps ([c8b7b62](https://github.com/ahmedrangel/netsuite-record-scripts/commit/c8b7b62))
+- Add iconify-browser-cache ([c10d315](https://github.com/ahmedrangel/netsuite-record-scripts/commit/c10d315))
+- Update deps ([c6a8eed](https://github.com/ahmedrangel/netsuite-record-scripts/commit/c6a8eed))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.1.12
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.11...v0.1.12)
