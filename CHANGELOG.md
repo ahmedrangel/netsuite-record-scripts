@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.2.0
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.13...v0.2.0)
+
+### 🚀 Enhancements
+
+- Suitelet support ([c463c67](https://github.com/ahmedrangel/netsuite-record-scripts/commit/c463c67))
+
+### 🏡 Chore
+
+- Update deps ([bbabd08](https://github.com/ahmedrangel/netsuite-record-scripts/commit/bbabd08))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.1.13
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.12...v0.1.13)
