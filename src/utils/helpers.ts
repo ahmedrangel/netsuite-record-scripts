@@ -4,42 +4,42 @@ export const getScripts = (html: string): NetSuiteScript[][] => {
   const $ = load(html);
   const userEvent = $("[id^=\"serverrow\"]").map((_, el): NetSuiteScript => ({
     type: "userevent",
-    name: $(el).find("td:nth-child(2)").text(),
+    name: $(el).find("td:nth-child(2)").text()?.trim(),
     url: $(el).find("td:nth-child(2) > a").attr("href"),
-    owner: $(el).find("td:nth-child(3)").text(),
+    owner: $(el).find("td:nth-child(3)").text()?.trim(),
     ownerUrl: $(el).find("td:nth-child(3) > a").attr("href"),
-    version: $(el).find("td:nth-child(4)").text(),
+    version: $(el).find("td:nth-child(4)").text()?.trim(),
     status: $(el).find("td:nth-child(8) * input").attr("value"),
     deployed: $(el).find("td:nth-child(9) > span").attr("class")?.includes("checkbox_ck") ? true : false,
     functions: {
-      beforeLoad: $(el).find("td:nth-child(10)").text(),
-      beforeSubmit: $(el).find("td:nth-child(11)").text(),
-      afterSubmit: $(el).find("td:nth-child(12)").text()
+      beforeLoad: $(el).find("td:nth-child(10)").text()?.trim(),
+      beforeSubmit: $(el).find("td:nth-child(11)").text()?.trim(),
+      afterSubmit: $(el).find("td:nth-child(12)").text()?.trim()
     }
   })).get();
 
   const client = $("[id^=\"clientrow\"]").map((_, el): NetSuiteScript => ({
     type: "client",
-    name: $(el).find("td:nth-child(2)").text(),
+    name: $(el).find("td:nth-child(2)").text()?.trim(),
     url: $(el).find("td:nth-child(2) > a").attr("href"),
-    owner: $(el).find("td:nth-child(3)").text(),
+    owner: $(el).find("td:nth-child(3)").text()?.trim(),
     ownerUrl: $(el).find("td:nth-child(3) > a").attr("href"),
-    version: $(el).find("td:nth-child(4)").text(),
+    version: $(el).find("td:nth-child(4)").text()?.trim(),
     status: $(el).find("td:nth-child(8) * input").attr("value"),
     deployed: $(el).find("td:nth-child(9) > span").attr("class")?.includes("checkbox_ck") ? true : false,
     functions: {
-      pageInit: $(el).find("td:nth-child(10)").text(),
-      saveRecord: $(el).find("td:nth-child(11)").text(),
-      fieldChanged: $(el).find("td:nth-child(12)").text(),
-      validateLine: $(el).find("td:nth-child(13)").text()
+      pageInit: $(el).find("td:nth-child(10)").text()?.trim(),
+      saveRecord: $(el).find("td:nth-child(11)").text()?.trim(),
+      fieldChanged: $(el).find("td:nth-child(12)").text()?.trim(),
+      validateLine: $(el).find("td:nth-child(13)").text()?.trim()
     }
   })).get();
 
   const workflows = $("[id^=\"workflowsrow\"]").map((_, el): NetSuiteScript => ({
     type: "workflow",
-    name: $(el).find("td:nth-child(1)").text(),
+    name: $(el).find("td:nth-child(1)").text()?.trim(),
     url: $(el).find("td:nth-child(1) > a").attr("href"),
-    owner: $(el).find("td:nth-child(7)").text(),
+    owner: $(el).find("td:nth-child(7)").text()?.trim(),
     ownerUrl: $(el).find("td:nth-child(7) > a").attr("href"),
     status: $(el).find("td:nth-child(8) * input").attr("value"),
     functions: {
@@ -53,20 +53,13 @@ export const getSuitelet = (html: string, options: { url: string }): NetSuiteScr
   const $ = load(html);
   const isV2 = $("[data-field-name=\"defaultfunction_v2\"]").find("span[id=\"defaultfunction_v2_fs\"]").attr("class")?.includes("checkbox_read_ck");
   const isV1 = $("[data-field-name=\"defaultfunction\"]").length;
-  console.log(
-    $("[id^=\"deploymentsrow\"]").map((_, el) => ({
-      name: $(el).find("td:nth-child(1)").text()?.trim(),
-      url: $(el).find("td:nth-child(1) > a").attr("href"),
-      status: $(el).find("td:nth-child(3)").text()?.trim()
-    })).get()
-  )
   return {
     type: "suitelet",
     name: $("[data-field-name=\"name\"] span[data-field-type=\"text\"]").text()?.trim(),
     url: options.url,
-    owner: $("[data-field-name=\"owner\"] span[data-field-type=\"select\"]").find("a").text(),
+    owner: $("[data-field-name=\"owner\"] span[data-field-type=\"select\"]").find("a").text()?.trim(),
     ownerUrl: $("[data-field-name=\"owner\"] span[data-field-type=\"select\"]").find("a").attr("href"),
-    version: $("[data-field-name=\"apiversion\"] span[data-field-type=\"select\"]").text(),
+    version: $("[data-field-name=\"apiversion\"] span[data-field-type=\"select\"]").text()?.trim(),
     functions: {
       ...isV2 ? {
         onRequest: "onRequest"
