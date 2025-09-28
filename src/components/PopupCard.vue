@@ -47,12 +47,12 @@ onMounted(async () => {
     const scriptIdMatch = location?.match(/script=(\d+)&deploy=(\d+)/);
     if (scriptIdMatch && scriptIdMatch[1]) {
       const scriptId = parseInt(scriptIdMatch[1]);
-      const suiteletURL = `${origin}/app/common/scripting/script.nl?id=${scriptId}&selectedtab=scriptdeployments`;
+      const suiteletURL = `/app/common/scripting/script.nl?id=${scriptId}`;
       const suiteletResult = await browser.scripting.executeScript({
         target: { tabId: tabId.value },
-        args: [suiteletURL],
-        func: async (suiteletURL: string) => {
-          const response = await fetch(suiteletURL).catch(() => null);
+        args: [origin, suiteletURL],
+        func: async (origin: string, suiteletURL: string) => {
+          const response = await fetch(`${origin}${suiteletURL}&selectedtab=scriptdeployments`).catch(() => null);
           if (!response) return null;
           return response.text();
         }
