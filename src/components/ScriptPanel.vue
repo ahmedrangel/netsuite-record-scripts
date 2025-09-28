@@ -93,7 +93,7 @@ const openEdit = async (url: string) => {
         </ul>
         <template v-if="s.type === 'suitelet'">
           <p v-if="s.type === 'suitelet' && s.deploys?.length" class="text-sm font-semibold my-1">Deploys:</p>
-          <div class="p-1 border border-slate-300 rounded inline-flex">
+          <div class="p-1 border border-slate-300 bg-slate-50 rounded inline-flex">
             <table>
               <tr v-for="(d, k) in s.deploys" :key="k">
                 <td class="text-sm p-1">
