@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.2
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.1...v0.2.2)
+
+### 🩹 Fixes
+
+- Suitelet url ([8cc23e1](https://github.com/ahmedrangel/netsuite-record-scripts/commit/8cc23e1))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.2.1
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.0...v0.2.1)
