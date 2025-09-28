@@ -49,6 +49,39 @@ export const getScripts = (html: string): NetSuiteScript[][] => {
   return [userEvent, client, workflows];
 };
 
+export const getSuitelet = (html: string, options: { url: string }): NetSuiteScript => {
+  const $ = load(html);
+  const isV2 = $("[data-field-name=\"defaultfunction_v2\"]").find("span[id=\"defaultfunction_v2_fs\"]").attr("class")?.includes("checkbox_read_ck");
+  const isV1 = $("[data-field-name=\"defaultfunction\"]").length;
+  console.log(
+    $("[id^=\"deploymentsrow\"]").map((_, el) => ({
+      name: $(el).find("td:nth-child(1)").text()?.trim(),
+      url: $(el).find("td:nth-child(1) > a").attr("href"),
+      status: $(el).find("td:nth-child(3)").text()?.trim()
+    })).get()
+  )
+  return {
+    type: "suitelet",
+    name: $("[data-field-name=\"name\"] span[data-field-type=\"text\"]").text()?.trim(),
+    url: options.url,
+    owner: $("[data-field-name=\"owner\"] span[data-field-type=\"select\"]").find("a").text(),
+    ownerUrl: $("[data-field-name=\"owner\"] span[data-field-type=\"select\"]").find("a").attr("href"),
+    version: $("[data-field-name=\"apiversion\"] span[data-field-type=\"select\"]").text(),
+    functions: {
+      ...isV2 ? {
+        onRequest: "onRequest"
+      } : isV1 ? {
+        onRequest: $("[data-field-name=\"defaultfunction\"] span[data-field-type=\"text\"]").text()?.trim()
+      } : {}
+    },
+    deploys: $("[id^=\"deploymentsrow\"]").map((_, el) => ({
+      name: $(el).find("td:nth-child(1)").text()?.trim(),
+      url: $(el).find("td:nth-child(1) > a").attr("href"),
+      status: $(el).find("td:nth-child(3)").text()?.trim()
+    })).get()
+  };
+};
+
 export const getEditScriptURL = (html: string) => {
   const $ = load(html);
   const scriptOnClick = $("div[data-field-name='scriptfile'] a[onclick*='edittextmediaitem']")?.attr("onclick");

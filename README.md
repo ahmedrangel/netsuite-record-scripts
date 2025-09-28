@@ -6,6 +6,7 @@ With this extension, simply click while on a NetSuite record to quickly see all 
 
 - A clean and user-friendly interface
 - Script type (User Event, Client, Workflow) with the number of scripts for each one
+- Suitelet Support
 - A search bar to filter scripts easily
 - Clickable script names for quick access
 - Clickable owner

@@ -2,7 +2,7 @@ export {};
 
 declare global {
   interface NetSuiteScript {
-    type: "userevent" | "client" | "workflow";
+    type: "userevent" | "client" | "workflow" | "suitelet";
     name: string;
     url?: string;
     owner: string;
@@ -13,5 +13,10 @@ declare global {
     functions: {
       [key: string]: string | undefined;
     };
+    deploys?: {
+      name: string;
+      url?: string;
+      status?: string;
+    }[];
   }
 }

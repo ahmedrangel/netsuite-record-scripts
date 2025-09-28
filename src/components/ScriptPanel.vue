@@ -75,7 +75,7 @@ const openEdit = async (url: string) => {
           </div>
           <div class="text-end">
             <p class="font-semibold flex items-center gap-1">
-              <span class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium ring-1 ring-slate-400 ring-inset" :title="s.status">{{ s.status }}</span>
+              <span v-if="s.status" class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium ring-1 ring-slate-400 ring-inset" :title="s.status">{{ s.status }}</span>
               <span v-if="s.deployed === true" class="inline-flex items-center rounded-md bg-lime-200 px-1 py-1 text-xs font-medium ring-1 ring-lime-500 ring-inset" title="Deployed">
                 <Icon icon="ph:check-bold" height="16" width="16" />
               </span>
@@ -91,6 +91,24 @@ const openEdit = async (url: string) => {
             <li v-if="f"> {{ j }}: <span class="font-semibold">{{ f }}</span></li>
           </template>
         </ul>
+        <template v-if="s.type === 'suitelet'">
+          <p v-if="s.type === 'suitelet' && s.deploys?.length" class="text-sm font-semibold my-1">Deploys:</p>
+          <div class="p-1 border border-slate-300 rounded inline-flex">
+            <table>
+              <tr v-for="(d, k) in s.deploys" :key="k">
+                <td class="text-sm p-1">
+                  <span v-if="d.url" class="hover:underline">
+                    <a :href="origin + d.url" target="_blank" rel="noopener noreferrer">{{ d.name }}</a>
+                  </span>
+                  <span v-else>{{ d.name }}</span>
+                </td>
+                <td class="text-sm p-1">
+                  <span v-if="d.status" class="inline-flex items-center rounded-md bg-slate-100 p-1 text-xs font-medium ring-1 ring-slate-400 ring-inset" :title="d.status">{{ d.status }}</span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </template>
       </div>
     </template>
   </TransitionGroup>
