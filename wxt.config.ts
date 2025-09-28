@@ -18,7 +18,7 @@ export default defineConfig({
     startUrls: ["https://system.netsuite.com/"]
   },
   autoIcons: {
-    grayscaleOnDevelopment: false
+    developmentIndicator: false
   },
   vite: () => ({
     plugins: [
