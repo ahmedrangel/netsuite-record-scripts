@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.2.1
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.0...v0.2.1)
+
+### 🩹 Fixes
+
+- Trim cheerio texts + remove log ([1a98adb](https://github.com/ahmedrangel/netsuite-record-scripts/commit/1a98adb))
+
+### 🏡 Chore
+
+- Add bg to suitelet deploys ([83800ce](https://github.com/ahmedrangel/netsuite-record-scripts/commit/83800ce))
+- Lint ([a23acf8](https://github.com/ahmedrangel/netsuite-record-scripts/commit/a23acf8))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.2.0
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.1.13...v0.2.0)
