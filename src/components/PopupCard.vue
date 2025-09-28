@@ -137,15 +137,20 @@ watchEffect(() => {
           <Tab v-slot="{ selected }" class="w-full rounded overflow-hidden cursor-pointer border border-violet-900" @click="filterInput?.focus()">
             <div class="flex align-center justify-center gap-1 p-2" :class="selected ? 'bg-violet-500/30 hover:bg-violet-500/40' : 'bg-violet-900/70 hover:bg-violet-900/82'">
               <span class="text-md font-bold" :class="selected ? '' : 'text-slate-50'">{{ tab.name }}</span>
-              <span v-if="!isSuitelet" class="px-1.5 rounded border font-bold bg-lime-200 border-lime-600">{{ tab.count || 0}}</span>
+              <span v-if="!isSuitelet" class="px-1.5 rounded border font-bold bg-lime-200 border-lime-600">{{ tab.count || 0 }}</span>
             </div>
           </Tab>
         </template>
       </TabList>
       <div v-if="!isSuitelet" class="flex items-center justify-between mb-1">
         <div class="flex items-center bg-slate-50 p-1.5 outline-1 -outline-offset-1 outline-violet-900/70 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 w-full rounded-l">
-          <input ref="filterInput" v-model="searchInput" type="text" name="filter" class="block min-w-0 grow pr-3 pl-1 text-xs text-gray-900 placeholder:text-gray-500 focus:outline-none" placeholder="Type to filter..."
-            :disabled="!userEventScripts.length && !clientScripts.length && !workflows.length && fetched"
+          <input ref="filterInput"
+                 v-model="searchInput"
+                 type="text"
+                 name="filter"
+                 class="block min-w-0 grow pr-3 pl-1 text-xs text-gray-900 placeholder:text-gray-500 focus:outline-none"
+                 placeholder="Type to filter..."
+                 :disabled="!userEventScripts.length && !clientScripts.length && !workflows.length && fetched"
           >
           <div v-if="searchInput" class="grid shrink-0 grid-cols-1 focus-within:relative cursor-pointer" role="button" @click="searchInput = ''">
             <Icon icon="ph:x-circle-duotone" class="text-rose-600" height="15" width="20" />
