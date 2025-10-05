@@ -1,6 +1,11 @@
+import { resolve } from "node:path";
+import { mkdir, readdir } from "node:fs/promises";
 import { defineConfig } from "wxt";
 import tailwindcss from "@tailwindcss/vite";
-import pkg from "./package.json" with { type: "json" };
+import pkg from "./../package.json" with { type: "json" };
+
+await readdir(".wxt").catch(() => mkdir(".wxt"));
+await readdir(".wxt/chrome-data").catch(() => mkdir(".wxt/chrome-data"));
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
@@ -15,7 +20,9 @@ export default defineConfig({
     host_permissions: ["https://*.netsuite.com/*"]
   },
   webExt: {
-    startUrls: ["https://system.netsuite.com/"]
+    startUrls: ["https://system.netsuite.com/"],
+    chromiumProfile: resolve(".wxt/chrome-data"),
+    keepProfileChanges: true
   },
   autoIcons: {
     developmentIndicator: false
