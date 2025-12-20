@@ -112,80 +112,82 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="card">
-    <div class="px-1 py-1.5 text-lg font-semibold flex justify-between items-center">
-      <span class="flex justify-start items-center gap-2">
-        <NetsuiteRecordScriptsIcon height="30" />
-        <span>NETSUITE RECORD SCRIPTS</span>
-        <span title="Configuration" class="cursor-pointer hover:text-violet-900/82" @click="isModalOpen = true">
-          <Icon icon="ph:gear-six-bold" height="24" />
+  <div class="card justify-between flex flex-col">
+    <div>
+      <div class="px-1 py-1.5 text-lg font-semibold flex justify-between items-center">
+        <span class="flex justify-start items-center gap-2">
+          <NetsuiteRecordScriptsIcon height="30" />
+          <span>NETSUITE RECORD SCRIPTS</span>
+          <span title="Configuration" class="cursor-pointer hover:text-violet-900/82" @click="isModalOpen = true">
+            <Icon icon="ph:gear-six-bold" height="24" />
+          </span>
         </span>
-      </span>
-      <span class="gh-icon">
-        <a href="https://github.com/ahmedrangel/netsuite-record-scripts" target="_blank" rel="noopener noreferrer">
-          <Icon icon="simple-icons:github" height="26" />
-        </a>
-      </span>
-    </div>
-    <div v-if="!record && !isSuitelet" class="flex justify-center items-center h-32 gap-2">
-      <Icon icon="ph:newspaper-duotone" class="text-rose-500" height="32" />
-      <span class="text-lg font-semibold">Not a record page</span>
-    </div>
-    <div v-else-if="loading">
-      <div class="flex justify-center items-center h-32 gap-2">
-        <Icon icon="eos-icons:loading" class="text-violet-600" height="32" />
-        <span class="text-lg font-semibold">Loading...</span>
+        <span class="gh-icon">
+          <a href="https://github.com/ahmedrangel/netsuite-record-scripts" target="_blank" rel="noopener noreferrer">
+            <Icon icon="simple-icons:github" height="26" />
+          </a>
+        </span>
       </div>
-    </div>
-    <TabGroup v-else-if="fetched && !loading">
-      <TabList class="flex align-center justify-center gap-1 pb-1">
-        <template v-for="(tab, i) in tabs" :key="i">
-          <Tab v-slot="{ selected }" class="w-full rounded overflow-hidden cursor-pointer border border-violet-900" @click="filterInput?.focus()">
-            <div class="flex align-center justify-center gap-1 p-2" :class="selected ? 'bg-violet-500/30 hover:bg-violet-500/40' : 'bg-violet-900/70 hover:bg-violet-900/82'">
-              <span class="text-md font-bold" :class="selected ? '' : 'text-slate-50'">{{ tab.name }}</span>
-              <span v-if="!isSuitelet" class="px-1.5 rounded border font-bold bg-lime-200 border-lime-600">{{ tab.count || 0 }}</span>
-            </div>
-          </Tab>
-        </template>
-      </TabList>
-      <div v-if="!isSuitelet" class="flex items-center justify-between mb-1 gap-px text-xs">
-        <div class="flex items-center bg-slate-50 p-1.5 outline-1 -outline-offset-1 outline-violet-900/70 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 w-full rounded-l">
-          <input ref="filterInput"
-                 v-model="searchInput"
-                 type="text"
-                 name="filter"
-                 class="block min-w-0 grow pr-3 pl-1 text-gray-900 placeholder:text-gray-500 focus:outline-none"
-                 placeholder="Type to filter..."
-                 :disabled="!userEventScripts.length && !clientScripts.length && !workflows.length && fetched"
-          >
-          <div v-if="searchInput" class="grid shrink-0 grid-cols-1 focus-within:relative cursor-pointer" role="button" @click="searchInput = ''">
-            <Icon icon="ph:x-circle-duotone" class="text-rose-600" height="16" width="20" />
-          </div>
+      <div v-if="!record && !isSuitelet" class="flex justify-center items-center gap-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Icon icon="ph:newspaper-duotone" class="text-rose-500" height="32" />
+        <span class="text-lg font-semibold">Not a record page</span>
+      </div>
+      <div v-else-if="loading">
+        <div class="flex justify-center items-center h-32 gap-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <Icon icon="eos-icons:loading" class="text-violet-600" height="32" />
+          <span class="text-lg font-semibold">Loading...</span>
         </div>
-        <a v-if="recType" :href="recType ? withQuery(`${netsuiteOrigin}/app/common/custom/custrecord.nl`, { id: recType, e: 'T' }) : ''" target="_blank" rel="noopener noreferrer" class="px-2 py-1.5 bg-violet-900/70 hover:bg-violet-900/82 flex items-center" title="Customize record">
-          <span class="text-slate-50 font-normal">{{ record }}</span>
-          <Icon icon="tabler:external-link" class="inline-block ml-1 text-slate-50" height="16" />
-        </a>
-        <span v-else class="text-slate-50 px-2 py-1.5 bg-violet-900/70">{{ record }}</span>
-        <!-- Copy record name to clipboard -->
-        <button class="rounded-r px-2 py-1.5 bg-violet-900/70 hover:bg-violet-900/82" title="Copy record id" @click="copyToClipboard(record); copied = true;">
-          <Icon v-if="!copied" icon="ph:copy-duotone" class="text-slate-50" height="16" width="16" />
-          <Icon v-else icon="ph:check" class="text-slate-50" height="16" width="16" />
-        </button>
       </div>
-      <div v-if="!userEventScripts.length && !clientScripts.length && !workflows.length && !suitelet && fetched" class="flex justify-center items-center h-32 gap-2">
-        <Icon icon="ph:x-circle-duotone" class="text-rose-500" height="32" />
-        <span class="text-lg font-semibold">No scripts found</span>
-      </div>
-      <div v-if="suitelet" class="panel flex flex-col gap-1">
-        <ScriptPanel :scripts="[suitelet]" :origin="netsuiteOrigin" :search="searchInput" :tab-id="tabId" />
-      </div>
-      <TabPanels v-else class="relative overflow-hidden">
-        <TabPanel v-for="(scripts, i) of [userEventScripts, clientScripts, workflows]" :key="i" class="panel flex flex-col gap-1">
-          <ScriptPanel :scripts="scripts" :origin="netsuiteOrigin" :search="searchInput" :tab-id="tabId" />
-        </TabPanel>
-      </TabPanels>
-    </TabGroup>
+      <TabGroup v-else-if="fetched && !loading">
+        <TabList class="flex align-center justify-center gap-1 pb-1">
+          <template v-for="(tab, i) in tabs" :key="i">
+            <Tab v-slot="{ selected }" class="w-full rounded overflow-hidden cursor-pointer border border-violet-900" @click="filterInput?.focus()">
+              <div class="flex align-center justify-center gap-1 p-2" :class="selected ? 'bg-violet-500/30 hover:bg-violet-500/40' : 'bg-violet-900/70 hover:bg-violet-900/82'">
+                <span class="text-md font-bold" :class="selected ? '' : 'text-slate-50'">{{ tab.name }}</span>
+                <span v-if="!isSuitelet" class="px-1.5 rounded border font-bold bg-lime-200 border-lime-600">{{ tab.count || 0 }}</span>
+              </div>
+            </Tab>
+          </template>
+        </TabList>
+        <div v-if="!isSuitelet" class="flex items-center justify-between mb-1 gap-px text-xs">
+          <div class="flex items-center bg-slate-50 p-1.5 outline-1 -outline-offset-1 outline-violet-900/70 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 w-full rounded-l">
+            <input ref="filterInput"
+                   v-model="searchInput"
+                   type="text"
+                   name="filter"
+                   class="block min-w-0 grow pr-3 pl-1 text-gray-900 placeholder:text-gray-500 focus:outline-none"
+                   placeholder="Type to filter..."
+                   :disabled="!userEventScripts.length && !clientScripts.length && !workflows.length && fetched"
+            >
+            <div v-if="searchInput" class="grid shrink-0 grid-cols-1 focus-within:relative cursor-pointer" role="button" @click="searchInput = ''">
+              <Icon icon="ph:x-circle-duotone" class="text-rose-600" height="16" width="20" />
+            </div>
+          </div>
+          <a v-if="recType" :href="recType ? withQuery(`${netsuiteOrigin}/app/common/custom/custrecord.nl`, { id: recType, e: 'T' }) : ''" target="_blank" rel="noopener noreferrer" class="px-2 py-1.5 bg-violet-900/70 hover:bg-violet-900/82 flex items-center" title="Customize record">
+            <span class="text-slate-50 font-normal">{{ record }}</span>
+            <Icon icon="tabler:external-link" class="inline-block ml-1 text-slate-50" height="16" />
+          </a>
+          <span v-else class="text-slate-50 px-2 py-1.5 bg-violet-900/70">{{ record }}</span>
+          <!-- Copy record name to clipboard -->
+          <button class="rounded-r px-2 py-1.5 bg-violet-900/70 hover:bg-violet-900/82" title="Copy record id" @click="copyToClipboard(record); copied = true;">
+            <Icon v-if="!copied" icon="ph:copy-duotone" class="text-slate-50" height="16" width="16" />
+            <Icon v-else icon="ph:check" class="text-slate-50" height="16" width="16" />
+          </button>
+        </div>
+        <div v-if="!userEventScripts.length && !clientScripts.length && !workflows.length && !suitelet && fetched" class="flex justify-center items-center h-32 gap-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <Icon icon="ph:x-circle-duotone" class="text-rose-500" height="32" />
+          <span class="text-lg font-semibold">No scripts found</span>
+        </div>
+        <div v-if="suitelet" class="panel flex flex-col gap-1">
+          <ScriptPanel :scripts="[suitelet]" :origin="netsuiteOrigin" :search="searchInput" :tab-id="tabId" />
+        </div>
+        <TabPanels v-else class="relative overflow-hidden">
+          <TabPanel v-for="(scripts, i) of [userEventScripts, clientScripts, workflows]" :key="i" class="panel flex flex-col gap-1">
+            <ScriptPanel :scripts="scripts" :origin="netsuiteOrigin" :search="searchInput" :tab-id="tabId" />
+          </TabPanel>
+        </TabPanels>
+      </TabGroup>
+    </div>
     <div class="py-2 text-xs">
       <span>by</span>
       <span>&nbsp;</span>

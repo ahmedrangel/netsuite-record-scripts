@@ -71,9 +71,6 @@ button:focus-visible {
 
 .card {
   height: 600px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .gh-icon a {
