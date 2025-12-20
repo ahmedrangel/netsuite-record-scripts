@@ -1,6 +1,31 @@
 # Changelog
 
 
+## v0.2.3
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.2...v0.2.3)
+
+### 🚀 Enhancements
+
+- Add copy record id to clipboard button + add external open icon to customize record button ([5e641cb](https://github.com/ahmedrangel/netsuite-record-scripts/commit/5e641cb))
+- Add config preferences modal and text editor improvement ([ff05582](https://github.com/ahmedrangel/netsuite-record-scripts/commit/ff05582))
+
+### 🩹 Fixes
+
+- Adjust position ([680d1ad](https://github.com/ahmedrangel/netsuite-record-scripts/commit/680d1ad))
+
+### 🏡 Chore
+
+- Use .config dir ([a96f1c5](https://github.com/ahmedrangel/netsuite-record-scripts/commit/a96f1c5))
+- Update deps ([18db9b7](https://github.com/ahmedrangel/netsuite-record-scripts/commit/18db9b7))
+- **eslint:** Add more rules ([a07bab5](https://github.com/ahmedrangel/netsuite-record-scripts/commit/a07bab5))
+- Minimal class adjust ([07b1060](https://github.com/ahmedrangel/netsuite-record-scripts/commit/07b1060))
+- Adjust modal roundness ([d764bc6](https://github.com/ahmedrangel/netsuite-record-scripts/commit/d764bc6))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.2.2
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.1...v0.2.2)
