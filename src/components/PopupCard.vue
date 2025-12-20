@@ -2,9 +2,10 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
 import { Icon } from "@iconify/vue";
 import { getQuery, withQuery } from "ufo";
-import { copyToClipboard, getCurrentTabId, getScripts, getSuitelet } from "../utils/helpers";
 import ScriptPanel from "./ScriptPanel.vue";
 import NetsuiteRecordScriptsIcon from "./NetsuiteRecordScriptsIcon.vue";
+import ConfigModal from "./ConfigModal.vue";
+import { copyToClipboard, getCurrentTabId, getScripts, getSuitelet } from "@/utils/helpers";
 
 const tabId = ref<number>();
 const loading = ref(false);
@@ -13,6 +14,7 @@ const record = ref("");
 const netsuiteOrigin = ref("");
 const recType = ref<string | null>(null);
 const copied = ref(false);
+const isModalOpen = ref(false);
 
 const userEventScripts = ref<NetSuiteScript[]>([]);
 const clientScripts = ref<NetSuiteScript[]>([]);
@@ -115,6 +117,9 @@ watchEffect(() => {
       <span class="flex justify-start items-center gap-2">
         <NetsuiteRecordScriptsIcon height="30" />
         <span>NETSUITE RECORD SCRIPTS</span>
+        <span title="Configuration" class="cursor-pointer hover:text-violet-900/82" @click="isModalOpen = true">
+          <Icon icon="ph:gear-six-bold" height="24" />
+        </span>
       </span>
       <span class="gh-icon">
         <a href="https://github.com/ahmedrangel/netsuite-record-scripts" target="_blank" rel="noopener noreferrer">
@@ -189,5 +194,6 @@ watchEffect(() => {
       </span>
     </div>
   </div>
+  <ConfigModal :is-open="isModalOpen" @close="isModalOpen = false" />
 </template>
 

@@ -16,7 +16,7 @@ export default defineConfig({
     description: pkg.description,
     version: pkg.version,
     action: {},
-    permissions: ["activeTab", "scripting"],
+    permissions: ["activeTab", "scripting", "storage"],
     host_permissions: ["https://*.netsuite.com/*"]
   },
   webExt: {

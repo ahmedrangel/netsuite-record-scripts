@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-import { getEditScriptURL } from "../utils/helpers";
+import { getEditScriptURL } from "@/utils/helpers";
+import { extConfig } from "@/utils/config";
 
 const props = defineProps<{
   scripts: NetSuiteScript[];
@@ -17,6 +18,11 @@ const filteredScripts = computed(() => {
       s.status?.toLowerCase().includes(search) ||
       s.version?.toLowerCase().includes(search) ||
       Object.values(s.functions).some(f => f?.toLowerCase().includes(search));
+  }).filter(s => {
+    if (extConfig.hideNotDeployed) {
+      return s.deployed === true;
+    }
+    return true;
   });
 });
 
@@ -44,7 +50,8 @@ const openEdit = async (url: string) => {
     target: { tabId: props.tabId },
     func: (url: string) => {
       const screenHeight = window.screen.height * 1;
-      window.open(url, "popupWindow", `width=800,height=${screenHeight},scrollbars=yes,resizable=yes"`);
+      const screenWidth = window.screen.width * 1;
+      window.open(url, "popupWindow", `width=${screenWidth},height=${screenHeight},scrollbars=yes,resizable=yes"`);
     }
   });
   openingStates.value[url] = false;

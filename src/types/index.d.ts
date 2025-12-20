@@ -19,4 +19,9 @@ declare global {
       status?: string;
     }[];
   }
+
+  interface NetSuiteRecordScriptsConfig {
+    hideNotDeployed: boolean;
+    improveEditor: boolean;
+  }
 }
