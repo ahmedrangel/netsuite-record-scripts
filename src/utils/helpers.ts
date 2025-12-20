@@ -107,3 +107,7 @@ export const handlePopup = async (tabId?: number) => {
   await browser.action.enable();
   await browser.action.setPopup({ popup: "popup-ext.html" });
 };
+
+export const copyToClipboard = (text: string) => {
+  navigator.clipboard.writeText(text).catch(() => null);
+};
