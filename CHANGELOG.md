@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.4
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.3...v0.2.4)
+
+### 🏡 Chore
+
+- Rename modal title to Preferences ([1ca797d](https://github.com/ahmedrangel/netsuite-record-scripts/commit/1ca797d))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.2.3
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.2...v0.2.3)
