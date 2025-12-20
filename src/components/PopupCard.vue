@@ -118,7 +118,7 @@ watchEffect(() => {
         <span class="flex justify-start items-center gap-2">
           <NetsuiteRecordScriptsIcon height="30" />
           <span>NETSUITE RECORD SCRIPTS</span>
-          <span title="Configuration" class="cursor-pointer hover:text-violet-900/82" @click="isModalOpen = true">
+          <span title="Preferences" class="cursor-pointer hover:text-violet-900/82" @click="isModalOpen = true">
             <Icon icon="ph:gear-six-bold" height="24" />
           </span>
         </span>

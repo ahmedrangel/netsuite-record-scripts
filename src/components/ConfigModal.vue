@@ -34,7 +34,7 @@ onMounted(async () => {
   <div v-if="isOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
     <div class="text-start bg-white rounded shadow-lg w-11/12 max-w-md p-4">
       <div class="flex justify-between items-center">
-        <h2 class="text-xl font-semibold">Configuration</h2>
+        <h2 class="text-xl font-semibold">Preferences</h2>
         <button title="Close" @click="emit('close', false)">
           <Icon icon="ph:x-bold" height="24" class="text-rose-700" />
         </button>
