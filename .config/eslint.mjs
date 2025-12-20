@@ -69,7 +69,12 @@ export default defineConfigWithVueTs([
       "@typescript-eslint/consistent-type-imports": "error",
       "vue/first-attribute-linebreak": ["error", { singleline: "ignore", multiline: "ignore" }],
       "vue/max-attributes-per-line": ["error", { singleline: 100 }],
-      "vue/singleline-html-element-content-newline": ["off"]
+      "vue/singleline-html-element-content-newline": ["off"],
+      "vue/no-multiple-template-root": ["off"],
+      "vue/html-closing-bracket-spacing": ["error", { selfClosingTag: "always" }],
+      "vue/html-indent": ["error", 2],
+      "vue/multiline-html-element-content-newline": ["error", { ignores: [] }],
+      "vue/no-duplicate-class-names": "error"
     }
   }
 ]);
