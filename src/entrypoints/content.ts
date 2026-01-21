@@ -1,8 +1,17 @@
+import { getQuery } from "ufo";
+
 export default defineContentScript({
   matches: ["https://*.netsuite.com/*"],
   async main () {
     const improveEditorConfig = await storage.getItem("local:improveEditor");
-    if (!window.location.href.includes("/edittextmediaitem.nl?id=") || improveEditorConfig !== "true") return;
+    if (!window.location.href.includes("/edittextmediaitem.nl") || improveEditorConfig !== "true") return;
+
+    const { id } = getQuery(window.location.href);
+    if (!id) {
+      window.close();
+      return;
+    }
+
     console.info("[NetSuite Record Scripts] Applying editor styles...");
     const applyEditorStyles = () => {
       const screenWidth = window.innerWidth;
