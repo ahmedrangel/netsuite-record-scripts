@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.2.5
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.4...v0.2.5)
+
+### 🩹 Fixes
+
+- Close popup on saved extform script ([97e8e57](https://github.com/ahmedrangel/netsuite-record-scripts/commit/97e8e57))
+
+### 💅 Refactors
+
+- Support suitelet scripts lookup from extforms + fix deployed filtering preferences ([ee681ed](https://github.com/ahmedrangel/netsuite-record-scripts/commit/ee681ed))
+
+### 🏡 Chore
+
+- Update deps ([ea1be12](https://github.com/ahmedrangel/netsuite-record-scripts/commit/ea1be12))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.2.4
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.3...v0.2.4)

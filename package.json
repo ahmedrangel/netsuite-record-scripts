@@ -3,7 +3,7 @@
   "title": "NetSuite Record Scripts",
   "description": "Instantly view all scripts deployed on a NetSuite record with just one click!",
   "private": true,
-  "version": "0.2.4",
+  "version": "0.2.5",
   "type": "module",
   "scripts": {
     "dev": "wxt --config .config/wxt.ts",
