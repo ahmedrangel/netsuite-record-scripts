@@ -2,10 +2,12 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
 import { Icon } from "@iconify/vue";
 import { getQuery, withQuery } from "ufo";
+import { $fetch } from "ofetch";
 import ScriptPanel from "./ScriptPanel.vue";
 import NetsuiteRecordScriptsIcon from "./NetsuiteRecordScriptsIcon.vue";
 import ConfigModal from "./ConfigModal.vue";
-import { copyToClipboard, getCurrentTabId, getScripts, getSuitelet } from "@/utils/helpers";
+import { copyToClipboard, getCurrentTabId, getFixedOrigin, getScripts, getSuitelet } from "@/utils/helpers";
+import { extConfig } from "@/utils/config";
 
 const tabId = ref<number>();
 const loading = ref(false);
@@ -16,6 +18,7 @@ const recType = ref<string | null>(null);
 const copied = ref(false);
 const isModalOpen = ref(false);
 
+const allScripts = ref<NetSuiteScript[][]>([]);
 const userEventScripts = ref<NetSuiteScript[]>([]);
 const clientScripts = ref<NetSuiteScript[]>([]);
 const workflows = ref<NetSuiteScript[]>([]);
@@ -43,24 +46,15 @@ onMounted(async () => {
     fetched.value = true;
     return;
   }
-  netsuiteOrigin.value = origin;
+  netsuiteOrigin.value = getFixedOrigin(origin);
   isSuitelet.value = /scriptlet\.nl\?script=\d+&deploy=\d+/.test(location || "");
   if (isSuitelet.value) {
     loading.value = true;
-    const scriptIdMatch = location?.match(/script=(\d+)&deploy=(\d+)/);
-    if (scriptIdMatch && scriptIdMatch[1]) {
-      const scriptId = parseInt(scriptIdMatch[1]);
+    const { script, deploy } = getQuery<{ script: string, deploy: string }>(location || "");
+    if (script && deploy) {
+      const scriptId = parseInt(script);
       const suiteletURL = `/app/common/scripting/script.nl?id=${scriptId}`;
-      const suiteletResult = await browser.scripting.executeScript({
-        target: { tabId: tabId.value },
-        args: [origin, suiteletURL],
-        func: async (origin: string, suiteletURL: string) => {
-          const response = await fetch(`${origin}${suiteletURL}&selectedtab=scriptdeployments`).catch(() => null);
-          if (!response) return null;
-          return response.text();
-        }
-      });
-      const html = suiteletResult?.[0]?.result;
+      const html = await $fetch(`${netsuiteOrigin.value}${suiteletURL}&selectedtab=scriptdeployments`, { responseType: "text" }).catch(() => null);
       if (!html) {
         loading.value = false;
         fetched.value = true;
@@ -93,7 +87,17 @@ onMounted(async () => {
   const html = requestResult?.[0]?.result;
   if (!html) return;
   const scripts = getScripts(html);
-  [userEventScripts.value, clientScripts.value, workflows.value] = scripts;
+  allScripts.value = scripts;
+});
+
+watchEffect(() => {
+  if (allScripts.value.length) {
+    [userEventScripts.value, clientScripts.value, workflows.value] = allScripts.value;
+    if (extConfig.hideNotDeployed) {
+      userEventScripts.value = userEventScripts.value.filter(s => s.deployed === true);
+      clientScripts.value = clientScripts.value.filter(s => s.deployed === true);
+    }
+  }
 });
 
 const tabs = computed(() => [

@@ -111,3 +111,11 @@ export const handlePopup = async (tabId?: number) => {
 export const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text).catch(() => null);
 };
+
+export const getFixedOrigin = (origin: string) => {
+  // Fixes origin for extform URLs
+  if (origin.includes("extforms.netsuite.com")) {
+    return origin.replace("extforms.", "app.");
+  }
+  return origin;
+};

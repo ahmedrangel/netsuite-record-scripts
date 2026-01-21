@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
+import { $fetch } from "ofetch";
 import { getEditScriptURL } from "@/utils/helpers";
-import { extConfig } from "@/utils/config";
 
 const props = defineProps<{
   scripts: NetSuiteScript[];
@@ -18,11 +18,6 @@ const filteredScripts = computed(() => {
       s.status?.toLowerCase().includes(search) ||
       s.version?.toLowerCase().includes(search) ||
       Object.values(s.functions).some(f => f?.toLowerCase().includes(search));
-  }).filter(s => {
-    if (extConfig.hideNotDeployed) {
-      return s.deployed === true;
-    }
-    return true;
   });
 });
 
@@ -31,16 +26,7 @@ const openingStates = ref<{ [x: string]: boolean }>({});
 const openEdit = async (url: string) => {
   if (!props.tabId) return;
   openingStates.value[url] = true;
-  const requestResult = await browser.scripting.executeScript({
-    args: [url],
-    target: { tabId: props.tabId },
-    func: async (url: string) => {
-      const response = await fetch(url).catch(() => null);
-      if (!response) return null;
-      return response.text();
-    }
-  });
-  const scriptInfo = requestResult?.[0]?.result;
+  const scriptInfo = await $fetch(props.origin + url, { responseType: "text" }).catch(() => null);
   if (!scriptInfo) return openingStates.value[url] = false;
   const scriptEditUrl = getEditScriptURL(scriptInfo);
   if (!scriptEditUrl) return openingStates.value[url] = false;
