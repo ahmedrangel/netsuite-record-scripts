@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
 import { Icon } from "@iconify/vue";
-import { getQuery, withQuery } from "ufo";
+import { getQuery } from "ufo";
 import { $fetch } from "ofetch";
 import ScriptPanel from "./ScriptPanel.vue";
 import NetsuiteRecordScriptsIcon from "./NetsuiteRecordScriptsIcon.vue";
 import ConfigModal from "./ConfigModal.vue";
-import { copyToClipboard, getCurrentTabId, getFixedOrigin, getScripts, getSuitelet } from "@/utils/helpers";
+import { copyToClipboard, getCurrentTabId, getCustomizationURL, getFixedOrigin, getScripts, getSuitelet } from "@/utils/helpers";
 import { extConfig } from "@/utils/config";
 
 const tabId = ref<number>();
@@ -17,6 +17,7 @@ const netsuiteOrigin = ref("");
 const recType = ref<string | null>(null);
 const copied = ref(false);
 const isModalOpen = ref(false);
+const href = ref("");
 
 const allScripts = ref<NetSuiteScript[][]>([]);
 const userEventScripts = ref<NetSuiteScript[]>([]);
@@ -42,10 +43,11 @@ onMounted(async () => {
     }
   });
   const { recordType, origin, location } = (result[0].result!);
-  if (!origin) {
+  if (!origin || !location) {
     fetched.value = true;
     return;
   }
+  href.value = location || "";
   netsuiteOrigin.value = getFixedOrigin(origin);
   isSuitelet.value = /scriptlet\.nl\?script=\d+&deploy=\d+/.test(location || "");
   if (isSuitelet.value) {
@@ -167,7 +169,7 @@ watchEffect(() => {
               <Icon icon="ph:x-circle-duotone" class="text-rose-600" height="16" width="20" />
             </div>
           </div>
-          <a v-if="recType" :href="recType ? withQuery(`${netsuiteOrigin}/app/common/custom/custrecord.nl`, { id: recType, e: 'T' }) : ''" target="_blank" rel="noopener noreferrer" class="px-2 py-1.5 bg-violet-900/70 hover:bg-violet-900/82 flex items-center" title="Customize record">
+          <a v-if="getCustomizationURL(href, netsuiteOrigin, recType)" :href="getCustomizationURL(href, netsuiteOrigin, recType)" target="_blank" rel="noopener noreferrer" class="px-2 py-1.5 bg-violet-900/70 hover:bg-violet-900/82 flex items-center" title="Customize record">
             <span class="text-slate-50 font-normal">{{ record }}</span>
             <Icon icon="tabler:external-link" class="inline-block ml-1 text-slate-50" height="16" />
           </a>

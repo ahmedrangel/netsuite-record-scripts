@@ -1,4 +1,5 @@
 import { load } from "cheerio";
+import { withQuery } from "ufo";
 
 export const getScripts = (html: string): NetSuiteScript[][] => {
   const $ = load(html);
@@ -118,4 +119,35 @@ export const getFixedOrigin = (origin: string) => {
     return origin.replace("extforms.", "app.");
   }
   return origin;
+};
+
+const customization = {
+  customrecord: "/app/common/custom/custrecord.nl",
+  item: "/app/common/custom/itemcustfields.nl",
+  entity: "/app/common/custom/entitycustfields.nl",
+  transactions: "/app/common/custom/bodycustfields.nl",
+  events: "/app/common/custom/eventcustfields.nl",
+  other: "/app/common/custom/othercustfields.nl"
+};
+
+const customizationURLMapping = {
+  "/app/common/entity": customization.entity,
+  "/app/accounting/project": customization.entity,
+  "/app/common/item": customization.item,
+  "/app/accounting/transactions": customization.transactions,
+  "/app/crm/sales": customization.other,
+  "/app/crm/": customization.events,
+  "/app/accounting/wms": customization.other
+};
+
+export const getCustomizationURL = (href: string, origin: string, recType?: string | null) => {
+  if (href && recType) {
+    return withQuery(`${origin}${customization.customrecord}`, { id: recType, e: "T" });
+  }
+
+  for (const [urlPattern, customizationPath] of Object.entries(customizationURLMapping)) {
+    if (href.includes(urlPattern)) {
+      return `${origin}${customizationPath}`;
+    }
+  }
 };
