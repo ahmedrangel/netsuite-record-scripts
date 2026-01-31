@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.2.6
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.5...v0.2.6)
+
+### 🚀 Enhancements
+
+- Link to customization fields url based on type (customrecord, entity, item, transactions, events, other) ([b4e6e81](https://github.com/ahmedrangel/netsuite-record-scripts/commit/b4e6e81))
+
+### 🏡 Chore
+
+- Update deps ([6e628ce](https://github.com/ahmedrangel/netsuite-record-scripts/commit/6e628ce))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.2.5
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.4...v0.2.5)
