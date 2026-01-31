@@ -21,16 +21,16 @@
     "@headlessui/vue": "^1.7.23",
     "@iconify/vue": "^5.0.0",
     "@tailwindcss/vite": "^4.1.18",
-    "cheerio": "^1.1.2",
+    "cheerio": "^1.2.0",
     "ofetch": "^1.5.1",
     "tailwindcss": "^4.1.18",
     "vue": "^3.5.27"
   },
   "devDependencies": {
-    "@eslint/compat": "^2.0.1",
-    "@stylistic/eslint-plugin": "^5.7.0",
-    "@types/chrome": "^0.1.35",
-    "@typescript-eslint/eslint-plugin": "^8.53.1",
+    "@eslint/compat": "^2.0.2",
+    "@stylistic/eslint-plugin": "^5.7.1",
+    "@types/chrome": "^0.1.36",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
     "@vue/eslint-config-typescript": "^14.6.0",
     "@wxt-dev/auto-icons": "^1.1.0",
     "@wxt-dev/module-vue": "^1.0.3",
@@ -42,8 +42,8 @@
     "iconify-browser-cache": "^0.4.0",
     "typescript": "5.9.3",
     "ufo": "^1.6.3",
-    "vue-tsc": "^3.2.2",
+    "vue-tsc": "^3.2.4",
     "wxt": "^0.20.13"
   },
-  "packageManager": "pnpm@10.28.1"
+  "packageManager": "pnpm@10.28.2"
 }
