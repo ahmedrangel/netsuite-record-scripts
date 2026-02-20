@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.2.7
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.6...v0.2.7)
+
+### 🩹 Fixes
+
+- Avoid closing window when error page present ([6443dfb](https://github.com/ahmedrangel/netsuite-record-scripts/commit/6443dfb))
+
+### 🏡 Chore
+
+- **release:** V0.2.6 ([0053925](https://github.com/ahmedrangel/netsuite-record-scripts/commit/0053925))
+- **typescript:** Include .config dir ([6fff8f7](https://github.com/ahmedrangel/netsuite-record-scripts/commit/6fff8f7))
+- Update deps ([89a5216](https://github.com/ahmedrangel/netsuite-record-scripts/commit/89a5216))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.2.6
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.5...v0.2.6)
