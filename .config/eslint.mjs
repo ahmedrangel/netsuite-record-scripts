@@ -20,7 +20,7 @@ export default defineConfigWithVueTs([
     languageOptions: {
       parserOptions: {
         projectService: {
-          allowDefaultProject: [".config/wxt.ts", ".config/eslint.mjs"]
+          allowDefaultProject: [".config/eslint.mjs"]
         }
       }
     },
