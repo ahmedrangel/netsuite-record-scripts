@@ -7,7 +7,9 @@ export default defineContentScript({
     if (!window.location.href.includes("/edittextmediaitem.nl") || improveEditorConfig !== "true") return;
 
     const { id } = getQuery(window.location.href);
-    if (!id) {
+    const errorPage = document.querySelector(".error-page");
+
+    if (!id && !errorPage) {
       window.close();
       return;
     }
