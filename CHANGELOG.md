@@ -1,6 +1,32 @@
 # Changelog
 
 
+## v0.3.0
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.7...v0.3.0)
+
+### 🚀 Enhancements
+
+- ⚠️  Refactor script fetching and add support for inline suitelets ([4ec1096](https://github.com/ahmedrangel/netsuite-record-scripts/commit/4ec1096))
+- Add session cache to script edit URL ([10a08b3](https://github.com/ahmedrangel/netsuite-record-scripts/commit/10a08b3))
+
+### 🩹 Fixes
+
+- Parallelize suitelet and inline suitelets requests ([8ddd114](https://github.com/ahmedrangel/netsuite-record-scripts/commit/8ddd114))
+
+### 🏡 Chore
+
+- Add extension constants ([1d0ecc1](https://github.com/ahmedrangel/netsuite-record-scripts/commit/1d0ecc1))
+- Export pkg from constants and update imports ([caa6502](https://github.com/ahmedrangel/netsuite-record-scripts/commit/caa6502))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Refactor script fetching and add support for inline suitelets ([4ec1096](https://github.com/ahmedrangel/netsuite-record-scripts/commit/4ec1096))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.2.7
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.6...v0.2.7)
