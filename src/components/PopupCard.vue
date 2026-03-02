@@ -57,19 +57,22 @@ onMounted(async () => {
     if (script && deploy) {
       const scriptId = parseInt(script);
       const suiteletURL = `/app/common/scripting/script.nl?id=${scriptId}`;
-      suitelet.value = await getSuitelet({ origin: netsuiteOrigin.value, scriptURL: suiteletURL });
+
+      const [suiteletResult, inlineSuitelets] = await Promise.all([
+        getSuitelet({ origin: netsuiteOrigin.value, scriptURL: suiteletURL }),
+        outerHTML ? getInlineSuitelets(outerHTML, { origin: netsuiteOrigin.value }) : Promise.resolve([])
+      ]);
+
+      suitelet.value = suiteletResult;
       if (!suitelet.value) {
         loading.value = false;
         fetched.value = true;
         return;
       }
 
-      if (outerHTML) {
-        const inlineSuitelets = await getInlineSuitelets(outerHTML, { origin: netsuiteOrigin.value });
-        suitelets.value.push(suitelet.value);
-        if (inlineSuitelets.length) {
-          suitelets.value.push(...inlineSuitelets);
-        }
+      suitelets.value.push(suitelet.value);
+      if (inlineSuitelets.length) {
+        suitelets.value.push(...inlineSuitelets);
       }
     }
     loading.value = false;
