@@ -25,12 +25,28 @@ const filteredScripts = computed(() => {
 const openingStates = ref<{ [x: string]: boolean }>({});
 
 const openEdit = async (url: string) => {
-  if (!props.tabId) return;
+  const { id } = getQuery<{ id: string }>(url);
+  const { host } = parseURL(props.origin);
+  if (!id || !host || !props.tabId) return;
+
+  const storageKey = `edit_script:${host}:${id}`;
+
   openingStates.value[url] = true;
-  const scriptInfo = await $fetch(props.origin + url, { responseType: "text" }).catch(() => null);
-  if (!scriptInfo) return openingStates.value[url] = false;
-  const scriptEditUrl = getEditScriptURL(scriptInfo);
-  if (!scriptEditUrl) return openingStates.value[url] = false;
+  let scriptEditUrl;
+
+  const cachedEditUrl = await storage.getItem<string>(`session:${storageKey}`, scriptEditUrl);
+  if (cachedEditUrl) {
+    scriptEditUrl = cachedEditUrl;
+  }
+
+  if (!scriptEditUrl) {
+    const scriptInfo = await $fetch(props.origin + url, { responseType: "text" }).catch(() => null);
+    if (!scriptInfo) return openingStates.value[url] = false;
+    scriptEditUrl = getEditScriptURL(scriptInfo);
+    if (!scriptEditUrl) return openingStates.value[url] = false;
+    await storage.setItem(`session:${storageKey}`, scriptEditUrl);
+  }
+
   const editorUrl = props.origin + scriptEditUrl;
   await browser.scripting.executeScript({
     args: [editorUrl],
