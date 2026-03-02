@@ -7,8 +7,7 @@ import NetsuiteRecordScriptsIcon from "./NetsuiteRecordScriptsIcon.vue";
 import ConfigModal from "./ConfigModal.vue";
 import { copyToClipboard, getCurrentTabId, getCustomizationURL, getFixedOrigin, getInlineSuitelets, getScripts, getSuitelet } from "@/utils/helpers";
 import { extConfig } from "@/utils/config";
-import { EXT } from "@/utils/constants";
-import pkg from "../../package.json" with { type: "json" };
+import { EXT, pkg } from "@/utils/constants";
 
 const tabId = ref<number>();
 const loading = ref(false);

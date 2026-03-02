@@ -2,7 +2,7 @@ import { resolve } from "node:path";
 import { mkdir, readdir } from "node:fs/promises";
 import { defineConfig } from "wxt";
 import tailwindcss from "@tailwindcss/vite";
-import pkg from "./../package.json" with { type: "json" };
+import { pkg } from "../src/utils/constants";
 
 await readdir(".wxt").catch(() => mkdir(".wxt"));
 await readdir(".wxt/chrome-data").catch(() => mkdir(".wxt/chrome-data"));
