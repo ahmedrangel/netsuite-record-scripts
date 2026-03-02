@@ -7,6 +7,8 @@ import NetsuiteRecordScriptsIcon from "./NetsuiteRecordScriptsIcon.vue";
 import ConfigModal from "./ConfigModal.vue";
 import { copyToClipboard, getCurrentTabId, getCustomizationURL, getFixedOrigin, getInlineSuitelets, getScripts, getSuitelet } from "@/utils/helpers";
 import { extConfig } from "@/utils/config";
+import { EXT } from "@/utils/constants";
+import pkg from "../../package.json" with { type: "json" };
 
 const tabId = ref<number>();
 const loading = ref(false);
@@ -123,13 +125,13 @@ watchEffect(() => {
       <div class="px-1 py-1.5 text-lg font-semibold flex justify-between items-center">
         <span class="flex justify-start items-center gap-2">
           <NetsuiteRecordScriptsIcon height="30" />
-          <span>NETSUITE RECORD SCRIPTS</span>
+          <span class="uppercase">{{ EXT.name }}</span>
           <span title="Preferences" class="cursor-pointer hover:text-violet-900/82" @click="isModalOpen = true">
             <Icon icon="ph:gear-six-bold" height="24" />
           </span>
         </span>
         <span class="gh-icon">
-          <a href="https://github.com/ahmedrangel/netsuite-record-scripts" target="_blank" rel="noopener noreferrer">
+          <a :href="EXT.repository" target="_blank" rel="noopener noreferrer">
             <Icon icon="simple-icons:github" height="26" />
           </a>
         </span>
@@ -200,7 +202,10 @@ watchEffect(() => {
       <span>by</span>
       <span>&nbsp;</span>
       <span class="hover:underline">
-        <a href="https://github.com/ahmedrangel" target="_blank" rel="noopener noreferrer" class="hover:underline">Ahmed Rangel</a>
+        <a :href="EXT.owner.github" target="_blank" rel="noopener noreferrer" class="hover:underline">{{ EXT.owner.name }}</a>
+      </span>
+      <span class="hover:underline">
+        (<a :href="EXT.webstore.chrome" target="_blank" rel="noopener noreferrer" class="hover:underline">v{{ pkg.version }}</a>)
       </span>
     </div>
   </div>
