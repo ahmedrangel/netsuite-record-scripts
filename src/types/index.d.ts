@@ -18,6 +18,7 @@ declare global {
       url?: string;
       status?: string;
     }[];
+    isInline?: boolean;
   }
 
   interface NetSuiteRecordScriptsConfig {

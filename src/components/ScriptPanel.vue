@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 import { $fetch } from "ofetch";
+import { getQuery, parseURL } from "ufo";
 import { getEditScriptURL } from "@/utils/helpers";
 
 const props = defineProps<{
@@ -67,7 +68,7 @@ const openEdit = async (url: string) => {
             </p>
           </div>
           <div class="text-end">
-            <p class="font-semibold flex items-center gap-1">
+            <div class="font-semibold flex items-center gap-1">
               <span v-if="s.status" class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium ring-1 ring-slate-400 ring-inset" :title="s.status">{{ s.status }}</span>
               <span v-if="s.deployed === true" class="inline-flex items-center rounded-md bg-lime-200 px-1 py-1 text-xs font-medium ring-1 ring-lime-500 ring-inset" title="Deployed">
                 <Icon icon="ph:check-bold" height="16" width="16" />
@@ -76,7 +77,10 @@ const openEdit = async (url: string) => {
                 <Icon icon="ph:warning-circle-bold" height="16" width="16" class="text-rose-700/60" />
               </span>
               <span v-if="s.version" class="inline-flex items-center rounded-md bg-lime-200 px-2 py-1 text-xs font-medium ring-1 ring-lime-500 ring-inset" :title="`API v${s.version}`">API v{{ s.version }}</span>
-            </p>
+              <span v-if="s.isInline" class="inline-flex items-center rounded-md bg-sky-200 px-2 py-1 text-xs font-medium ring-1 ring-sky-400 ring-inset" :title="`API v${s.version}`">
+                Inline
+              </span>
+            </div>
           </div>
         </div>
         <ul class="list-disc ps-5">

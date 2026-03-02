@@ -1,7 +1,11 @@
 import { load } from "cheerio";
-import { withQuery } from "ufo";
+import { $fetch } from "ofetch";
+import { getQuery, withQuery } from "ufo";
 
-export const getScripts = (html: string): NetSuiteScript[][] => {
+export const getScripts = async (options: { origin: string, recordType: string }): Promise<NetSuiteScript[][]> => {
+  const { origin, recordType } = options;
+  const html = await $fetch(`${origin}/app/common/scripting/scriptedrecord.nl?id=${recordType.toUpperCase()}&e=T`, { responseType: "text" }).catch(() => null);
+  if (!html) return [[], [], []];
   const $ = load(html);
   const userEvent = $("[id^=\"serverrow\"]").map((_, el): NetSuiteScript => ({
     type: "userevent",
@@ -50,14 +54,16 @@ export const getScripts = (html: string): NetSuiteScript[][] => {
   return [userEvent, client, workflows];
 };
 
-export const getSuitelet = (html: string, options: { url: string }): NetSuiteScript => {
+export const getSuitelet = async (options: { origin: string, scriptURL: string }): Promise<NetSuiteScript | null> => {
+  const html = await $fetch(`${options.origin}${options.scriptURL}&selectedtab=scriptdeployments`, { responseType: "text" }).catch(() => null);
+  if (!html) return null;
   const $ = load(html);
   const isV2 = $("[data-field-name=\"defaultfunction_v2\"]").find("span[id=\"defaultfunction_v2_fs\"]").attr("class")?.includes("checkbox_read_ck");
   const isV1 = $("[data-field-name=\"defaultfunction\"]").length;
   return {
     type: "suitelet",
     name: $("[data-field-name=\"name\"] span[data-field-type=\"text\"]").text()?.trim(),
-    url: options.url,
+    url: options.scriptURL,
     owner: $("[data-field-name=\"owner\"] span[data-field-type=\"select\"]").find("a").text()?.trim(),
     ownerUrl: $("[data-field-name=\"owner\"] span[data-field-type=\"select\"]").find("a").attr("href"),
     version: $("[data-field-name=\"apiversion\"] span[data-field-type=\"select\"]").text()?.trim(),
@@ -150,4 +156,32 @@ export const getCustomizationURL = (href: string, origin: string, recType?: stri
       return `${origin}${customizationPath}`;
     }
   }
+};
+
+export const getInlineSuitelets = async (html: string, options: { origin: string }): Promise<NetSuiteScript[]> => {
+  const { origin } = options;
+  if (!origin) return [];
+  const $ = load(html);
+  const inlineSuiteletsURL: string[] = [];
+  const inlineSuitelets: NetSuiteScript[] = [];
+
+  $("iframe[src*='/app/site/hosting/scriptlet.nl']").each((_, el) => {
+    const src = $(el).attr("src");
+    if (src) {
+      const liveURL = src.startsWith(origin) ? src : `${origin}${src}`;
+      const { script } = getQuery<{ script: string }>(liveURL);
+      const suiteletURL = `/app/common/scripting/script.nl?id=${parseInt(script)}`;
+      inlineSuiteletsURL.push(suiteletURL);
+    }
+  });
+
+  const fetchSuiteletScripts = inlineSuiteletsURL.map(async (suiteletURL) => {
+    const suitelet = await getSuitelet({ origin, scriptURL: suiteletURL });
+    if (!suitelet) return;
+    inlineSuitelets.push({ ...suitelet, isInline: true });
+  });
+
+  await Promise.allSettled(fetchSuiteletScripts);
+
+  return inlineSuitelets;
 };
