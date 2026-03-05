@@ -112,7 +112,6 @@ export const handlePopup = async (tabId?: number) => {
   if (!hostname.includes(".netsuite.com")) return await browser.action.disable();
 
   await browser.action.enable();
-  await browser.action.setPopup({ popup: "popup-ext.html" });
 };
 
 export const copyToClipboard = (text: string) => {
