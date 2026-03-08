@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.3.1
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.3.0...v0.3.1)
+
+### 🩹 Fixes
+
+- Set popup on startup; refine onUpdated tab event ([d1e9823](https://github.com/ahmedrangel/netsuite-record-scripts/commit/d1e9823))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.3.0
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.2.7...v0.3.0)
