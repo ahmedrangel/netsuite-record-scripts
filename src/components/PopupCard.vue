@@ -58,9 +58,8 @@ onMounted(async () => {
     if (script && deploy) {
       const scriptId = parseInt(script);
       const suiteletURL = `/app/common/scripting/script.nl?id=${scriptId}`;
-
       const [suiteletResult, inlineSuitelets] = await Promise.all([
-        getSuitelet({ origin: netsuiteOrigin.value, scriptURL: suiteletURL }),
+        getSuitelet(outerHTML || "", { origin: netsuiteOrigin.value, scriptURL: suiteletURL }),
         outerHTML ? getInlineSuitelets(outerHTML, { origin: netsuiteOrigin.value }) : Promise.resolve([])
       ]);
 

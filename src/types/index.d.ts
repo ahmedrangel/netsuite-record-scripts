@@ -18,6 +18,11 @@ declare global {
       url?: string;
       status?: string;
     }[];
+    scriptModules?: {
+      name: string;
+      url: string;
+      editURL: string;
+    }[];
     isInline?: boolean;
   }
 

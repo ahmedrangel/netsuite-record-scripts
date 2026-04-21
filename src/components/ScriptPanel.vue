@@ -40,11 +40,16 @@ const openEdit = async (url: string) => {
   }
 
   if (!scriptEditUrl) {
-    const scriptInfo = await $fetch(props.origin + url, { responseType: "text" }).catch(() => null);
-    if (!scriptInfo) return openingStates.value[url] = false;
-    scriptEditUrl = getEditScriptURL(scriptInfo);
-    if (!scriptEditUrl) return openingStates.value[url] = false;
-    await storage.setItem(`session:${storageKey}`, scriptEditUrl);
+    if (!url.includes("edittextmediaitem.nl")) {
+      const scriptInfo = await $fetch(props.origin + url, { responseType: "text" }).catch(() => null);
+      if (!scriptInfo) return openingStates.value[url] = false;
+      scriptEditUrl = getEditScriptURL(scriptInfo);
+      if (!scriptEditUrl) return openingStates.value[url] = false;
+      await storage.setItem(`session:${storageKey}`, scriptEditUrl);
+    }
+    else {
+      scriptEditUrl = url;
+    }
   }
 
   const editorUrl = props.origin + scriptEditUrl;
@@ -105,6 +110,26 @@ const openEdit = async (url: string) => {
           </template>
         </ul>
         <template v-if="s.type === 'suitelet'">
+          <template v-if="s.scriptModules?.length">
+            <p class="text-sm font-semibold my-1">Client Script Modules:</p>
+            <div class="p-1 border border-slate-300 bg-slate-50 rounded inline-flex">
+              <table>
+                <tr v-for="(d, k) in s.scriptModules" :key="k">
+                  <td class="text-sm p-1">
+                    <span class="hover:underline">
+                      <a :href="origin + d.url" target="_blank" rel="noopener noreferrer">{{ d.name }}</a>
+                    </span>
+                  </td>
+                  <td class="text-sm p-1">
+                    <button v-if="d.editURL" class="text-gray-700 bg-lime-200 hover:bg-lime-300 p-0.5 rounded cursor-pointer text-xs font-medium ring-1 ring-lime-500 ring-inset focus:outline-none!" title="Open script editor" :disabled="openingStates[d.editURL]" @click="openEdit(d.editURL)">
+                      <Icon v-if="openingStates[d.editURL]" icon="eos-icons:loading" height="16" />
+                      <Icon v-else icon="ph:note-pencil-bold" height="16" />
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </template>
           <p v-if="s.type === 'suitelet' && s.deploys?.length" class="text-sm font-semibold my-1">Deploys:</p>
           <div class="p-1 border border-slate-300 bg-slate-50 rounded inline-flex">
             <table>
