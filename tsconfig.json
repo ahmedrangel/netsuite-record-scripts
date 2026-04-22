@@ -1,16 +1,5 @@
 {
   "compilerOptions": {
-    "paths": {
-      "@": ["./src"],
-      "@/*": ["./src/*"],
-      "~": ["./src"],
-      "~/*": ["./src/*"],
-      "@@": ["."],
-      "@@/*": ["./*"],
-      "~~": ["."],
-      "~~/*": ["./*"],
-      "N/*": ["./node_modules/@btonasse/suitescript-types/types/N/*"]
-    },
     "types": ["@btonasse/suitescript-types"]
   },
   "extends": "./.wxt/tsconfig.json",

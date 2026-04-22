@@ -31,5 +31,8 @@ export default defineConfig({
     plugins: [
       tailwindcss()
     ]
-  })
+  }),
+  alias: {
+    N: resolve("node_modules/@btonasse/suitescript-types/types/N")
+  }
 });
