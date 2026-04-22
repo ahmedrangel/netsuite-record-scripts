@@ -16,10 +16,19 @@ export default defineContentScript({
 
     console.info("[NetSuite Record Scripts] Applying editor styles...");
     const applyEditorStyles = () => {
+      // Fix 2026.1 editor useless element
+      const uselessElement = document.querySelector("div.uir-text-area-wrapper.uir-resizable-element ") as HTMLElement;
+      if (uselessElement) {
+        uselessElement.className = "";
+      }
       const screenWidth = window.innerWidth;
       const adjustedWidth = screenWidth - 40;
       if (screenWidth < 1080) return;
       setTimeout(() => {
+        const codeElement = document.querySelector("div[data-language='javascript']") as HTMLElement;
+        if (codeElement) {
+          codeElement.style.width = `${adjustedWidth}px`;
+        }
         const parentSpan = document.querySelector("span.uir-field.uir-resizable[data-nsps-type='field_input'][data-field-type='textarea']") as HTMLElement;
         if (parentSpan) {
           parentSpan.style.width = `${adjustedWidth}px`;
