@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.3.2
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.3.1...v0.3.2)
+
+### 🚀 Enhancements
+
+- **suitelet:** Get client script modules ([268d85b](https://github.com/ahmedrangel/netsuite-record-scripts/commit/268d85b))
+
+### 🩹 Fixes
+
+- Editor issue introduced on 2026.1 release ([7470ea5](https://github.com/ahmedrangel/netsuite-record-scripts/commit/7470ea5))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.3.1
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.3.0...v0.3.1)
