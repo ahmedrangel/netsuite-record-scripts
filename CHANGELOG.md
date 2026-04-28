@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.3.4
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.3.3...v0.3.4)
+
+### 🩹 Fixes
+
+- Differentiate script modules between different netsuite accounts ([76e0875](https://github.com/ahmedrangel/netsuite-record-scripts/commit/76e0875))
+
+### 🏡 Chore
+
+- **release:** V0.3.3 ([8aa7d06](https://github.com/ahmedrangel/netsuite-record-scripts/commit/8aa7d06))
+- **typescript:** Add N alias to wxt config ([cac328f](https://github.com/ahmedrangel/netsuite-record-scripts/commit/cac328f))
+- Update edit script key naming ([c5c608e](https://github.com/ahmedrangel/netsuite-record-scripts/commit/c5c608e))
+
+### ❤️ Contributors
+
+- Ahmed Rangel <ahmedrangel@outlook.com>
+
 ## v0.3.3
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.3.2...v0.3.3)
