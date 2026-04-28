@@ -29,7 +29,7 @@ const openEdit = async (url: string) => {
   const { host } = parseURL(props.origin);
   if (!id || !host || !props.tabId) return;
 
-  const storageKey = `edit_script:${host}:${id}`;
+  const storageKey = `editScript:${host}:${id}`;
 
   openingStates.value[url] = true;
   let scriptEditUrl;
