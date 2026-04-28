@@ -1,6 +1,6 @@
 import { load } from "cheerio";
 import { $fetch } from "ofetch";
-import { getQuery, withQuery } from "ufo";
+import { getQuery, parseURL, withQuery } from "ufo";
 
 export const getScripts = async (options: { origin: string, recordType: string }): Promise<NetSuiteScript[][]> => {
   const { origin, recordType } = options;
@@ -60,7 +60,7 @@ export const getSuitelet = async (outerHTML: string, options: { origin: string, 
   const $ = load(html);
   const isV2 = $("[data-field-name=\"defaultfunction_v2\"]").find("span[id=\"defaultfunction_v2_fs\"]").attr("class")?.includes("checkbox_read_ck");
   const isV1 = $("[data-field-name=\"defaultfunction\"]").length;
-  const scriptModules = await getScriptModules(outerHTML);
+  const scriptModules = await getScriptModules(outerHTML, { origin: options.origin });
   return {
     type: "suitelet",
     name: $("[data-field-name=\"name\"] span[data-field-type=\"text\"]").text()?.trim(),
@@ -187,12 +187,13 @@ export const getInlineSuitelets = async (html: string, options: { origin: string
   return inlineSuitelets;
 };
 
-const normalizeModulePathKey = (path: string) => {
+const normalizeModulePathKey = (host: string, path: string) => {
   path = path.startsWith("/") ? path.slice(1) : path;
-  return `scriptModule:${path.replaceAll("/", ":")}`;
+  // Hostname can be used to differentiate between different NetSuite accounts, as the same script can have different URLs in different accounts
+  return `scriptModule:${host}:${path.replaceAll("/", ":")}`;
 };
 
-export const getScriptModules = async (html: string): Promise<{ name: string, url: string, editURL: string }[]> => {
+export const getScriptModules = async (html: string, options: { origin: string }): Promise<{ name: string, url: string, editURL: string }[]> => {
   const tabId = await getCurrentTabId();
   if (!tabId) return [];
   const $ = load(html);
@@ -205,10 +206,11 @@ export const getScriptModules = async (html: string): Promise<{ name: string, ur
   }).get().reverse();
   const scriptModulesElement = $("script[data-requiremodule]").map((_, el) => $(el).attr("src")).get();
   for (const scriptModuleURL of [...oldScriptModules, ...scriptModulesElement]) {
-    const { id, _xt, childPath } = getQuery<{ id?: string, _xt: string, childPath: string }>(scriptModuleURL || "");
+    const { id, _xt, childPath } = getQuery<{ id?: string, _xt: string, childPath: string }>(scriptModuleURL);
+    const { host } = parseURL(options.origin);
 
     const modulePath = `${childPath}${_xt}`;
-    const key = normalizeModulePathKey(id || modulePath);
+    const key = normalizeModulePathKey(host!, id || modulePath);
 
     const cachedModule = await storage.getItem<{ name: string, url: string, editURL: string }>(`session:${key}`);
     if (cachedModule) {
