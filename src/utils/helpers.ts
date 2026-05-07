@@ -229,15 +229,16 @@ export const getScriptModules = async (html: string, options: { origin: string }
             return;
           }
           const require = window.require as unknown as typeof define;
+          const resolveObject = (name: string, id: string) => (resolve({
+            name,
+            url: `/app/common/media/mediaitem.nl?id=${id}`,
+            editURL: `/app/common/record/edittextmediaitem.nl?id=${id}&e=T&l=T&target=filesize&syntaxHighlighting=T`
+          }));
+
           // @ts-expect-error void return
           require(["N/search"], (search) => {
             try {
               let resolved = false;
-              const resolveObject = (name: string, id: string) => ({
-                name,
-                url: `/app/common/media/mediaitem.nl?id=${id}`,
-                editURL: `/app/common/record/edittextmediaitem.nl?id=${id}&e=T&l=T&target=filesize&syntaxHighlighting=T`
-              });
               if (id) {
                 const fileSearch = search.create({
                   type: "file",
@@ -250,9 +251,10 @@ export const getScriptModules = async (html: string, options: { origin: string }
                 if (fileSearch?.length) {
                   const fileResultName = fileSearch[0].getValue({ name: "name" }) as string;
                   const fileResultId = fileSearch[0].getValue({ name: "internalid" }) as string;
-                  resolve(resolveObject(fileResultName, fileResultId));
+                  resolveObject(fileResultName, fileResultId);
                   resolved = true;
                 }
+                if (!resolved) resolve(null);
                 return;
               }
 
@@ -282,7 +284,7 @@ export const getScriptModules = async (html: string, options: { origin: string }
                 if (fileSearch?.length) {
                   const fileResultName = fileSearch[0].getValue({ name: "name" }) as string;
                   const fileResultId = fileSearch[0].getValue({ name: "internalid" }) as string;
-                  resolve(resolveObject(fileResultName, fileResultId));
+                  resolveObject(fileResultName, fileResultId);
                   resolved = true;
                 }
                 if (!resolved) resolve(null);
