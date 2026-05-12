@@ -19,32 +19,32 @@
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.23",
-    "@iconify/vue": "^5.0.0",
-    "@tailwindcss/vite": "^4.2.4",
+    "@iconify/vue": "^5.0.1",
+    "@tailwindcss/vite": "^4.3.0",
     "cheerio": "^1.2.0",
     "ofetch": "^1.5.1",
-    "tailwindcss": "^4.2.4",
-    "vue": "^3.5.32"
+    "tailwindcss": "^4.3.0",
+    "vue": "^3.5.34"
   },
   "devDependencies": {
     "@btonasse/suitescript-types": "^2.4.1",
-    "@eslint/compat": "^2.0.5",
+    "@eslint/compat": "^2.1.0",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@types/chrome": "^0.1.40",
-    "@typescript-eslint/eslint-plugin": "^8.59.0",
+    "@types/chrome": "^0.1.42",
+    "@typescript-eslint/eslint-plugin": "^8.59.3",
     "@vue/eslint-config-typescript": "^14.7.0",
     "@wxt-dev/auto-icons": "^1.1.1",
     "@wxt-dev/module-vue": "^1.0.3",
     "changelogen": "^0.6.2",
-    "eslint": "^10.2.1",
+    "eslint": "^10.3.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-vue": "^10.8.0",
+    "eslint-plugin-vue": "^10.9.1",
     "iconify-browser-cache": "^0.4.0",
     "typescript": "6.0.3",
-    "ufo": "^1.6.3",
-    "vue-tsc": "^3.2.7",
-    "wxt": "^0.20.25"
+    "ufo": "^1.6.4",
+    "vue-tsc": "^3.2.8",
+    "wxt": "^0.20.26"
   },
-  "packageManager": "pnpm@10.33.0"
+  "packageManager": "pnpm@11.1.1"
 }
