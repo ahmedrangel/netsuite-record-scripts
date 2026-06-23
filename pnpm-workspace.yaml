@@ -1,8 +1,9 @@
+minimumReleaseAge: 0
 shamefullyHoist: true
 strictPeerDependencies: false
 
 allowBuilds:
-  esbuild: true
-  sharp: true
-  spawn-sync: true
-  unrs-resolver: true
+  esbuild: false
+  sharp: false
+  spawn-sync: false
+  unrs-resolver: false

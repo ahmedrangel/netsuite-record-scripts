@@ -1,10 +1,9 @@
 import { resolve } from "node:path";
 import stylistic from "@stylistic/eslint-plugin";
-import tsPlugin from "@typescript-eslint/eslint-plugin";
-import importPlugin from "eslint-plugin-import";
+import importPlugin from "eslint-plugin-import-x";
 import pluginVue from "eslint-plugin-vue";
 import { defineConfigWithVueTs, vueTsConfigs } from "@vue/eslint-config-typescript";
-import { includeIgnoreFile } from "@eslint/compat";
+import { includeIgnoreFile } from "@eslint/config-helpers";
 
 export default defineConfigWithVueTs([
   vueTsConfigs.recommendedTypeChecked,
@@ -13,7 +12,6 @@ export default defineConfigWithVueTs([
     files: ["**/*.js", "**/*.mjs", "**/*.ts", "**/*.vue"],
     plugins: {
       "@stylistic": stylistic,
-      "@typescript-eslint": tsPlugin,
       "import": importPlugin,
       "vue": pluginVue
     },
@@ -66,7 +64,6 @@ export default defineConfigWithVueTs([
       "import/no-self-import": "error",
       "import/order": "error",
       "import/newline-after-import": ["error", { count: 1 }],
-      "@typescript-eslint/consistent-type-imports": "error",
       "vue/first-attribute-linebreak": ["error", { singleline: "ignore", multiline: "ignore" }],
       "vue/max-attributes-per-line": ["error", { singleline: 100 }],
       "vue/singleline-html-element-content-newline": ["off"],
