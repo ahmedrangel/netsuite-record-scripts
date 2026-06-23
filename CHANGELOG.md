@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.3.5
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.3.4...v0.3.5)
+
+### 🚀 Enhancements
+
+- Handle multiple popup errors ([1e1a27b](https://github.com/ahmedrangel/netsuite-record-scripts/commit/1e1a27b))
+
+### 🏡 Chore
+
+- Call resolve inside resolveObject ([6a0e3dc](https://github.com/ahmedrangel/netsuite-record-scripts/commit/6a0e3dc))
+- **eslint:** Update eslint config ([5c179b8](https://github.com/ahmedrangel/netsuite-record-scripts/commit/5c179b8))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.3.4
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.3.3...v0.3.4)
