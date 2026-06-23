@@ -4,7 +4,9 @@ import { getQuery, parseURL, withQuery } from "ufo";
 
 export const getScripts = async (options: { origin: string, recordType: string }): Promise<NetSuiteScript[][]> => {
   const { origin, recordType } = options;
-  const html = await $fetch(`${origin}/app/common/scripting/scriptedrecord.nl?id=${recordType.toUpperCase()}&e=T`, { responseType: "text" }).catch(() => null);
+  const fetchData = await $fetch.raw(`${origin}/app/common/scripting/scriptedrecord.nl?id=${recordType.toUpperCase()}&e=T`, { responseType: "text" }).catch(() => null);
+  handleMissingPremissions(fetchData?.url);
+  const html = fetchData?._data;
   if (!html) return [[], [], []];
   const $ = load(html);
   const userEvent = $("[id^=\"serverrow\"]").map((_, el): NetSuiteScript => ({
@@ -55,7 +57,9 @@ export const getScripts = async (options: { origin: string, recordType: string }
 };
 
 export const getSuitelet = async (outerHTML: string, options: { origin: string, scriptURL: string }): Promise<NetSuiteScript | null> => {
-  const html = await $fetch(`${options.origin}${options.scriptURL}&selectedtab=scriptdeployments`, { responseType: "text" }).catch(() => null);
+  const fetchData = await $fetch.raw(`${options.origin}${options.scriptURL}&selectedtab=scriptdeployments`, { responseType: "text" }).catch(() => null);
+  handleMissingPremissions(fetchData?.url);
+  const html = fetchData?._data;
   if (!html) return null;
   const $ = load(html);
   const isV2 = $("[data-field-name=\"defaultfunction_v2\"]").find("span[id=\"defaultfunction_v2_fs\"]").attr("class")?.includes("checkbox_read_ck");
@@ -305,4 +309,16 @@ export const getScriptModules = async (html: string, options: { origin: string }
     await storage.setItem(`session:${key}`, moduleResult);
   }
   return scriptModules;
+};
+
+export const handleMissingPremissions = (url?: string) => {
+  if (url) {
+    if (url.includes("/app/login/secure/enterpriselogin.nl")) {
+      throw new Error("Not logged in");
+    }
+    const { permName } = getQuery<{ permName: string }>(url);
+    if (permName) {
+      throw new Error(`Missing permission: ${permName}`);
+    }
+  }
 };

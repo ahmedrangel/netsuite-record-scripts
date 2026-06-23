@@ -28,68 +28,93 @@ const suitelets = ref<NetSuiteScript[]>([]);
 const isSuitelet = ref(false);
 const searchInput = ref("");
 const filterInput = useTemplateRef("filterInput");
+const catchError = ref("");
+const popupError = computed(() => {
+  if (!fetched.value) return;
+  if (href.value.includes("/app/login/secure/enterpriselogin.nl")) {
+    return "Not logged in";
+  }
+  if (catchError.value) {
+    return catchError.value;
+  }
+  if (!record.value && !isSuitelet.value) {
+    return "Not a record page";
+  }
+  if (!userEventScripts.value.length && !clientScripts.value.length && !workflows.value.length && !suitelet.value && fetched.value) {
+    return "No scripts found";
+  }
+  return;
+});
 
 onMounted(async () => {
-  tabId.value = await getCurrentTabId();
-  if (!tabId.value) return;
-  const result = await browser.scripting.executeScript({
-    target: { tabId: tabId.value },
-    func: () => {
-      const input = document.querySelector("#baserecordtype") as HTMLInputElement;
-      return {
-        recordType: input?.value || null,
-        origin: window.location.origin || null,
-        location: window.location.href || null,
-        outerHTML: document.documentElement.outerHTML || null
-      };
+  try {
+    catchError.value = "";
+    tabId.value = await getCurrentTabId();
+    if (!tabId.value) return;
+    const result = await browser.scripting.executeScript({
+      target: { tabId: tabId.value },
+      func: () => {
+        const input = document.querySelector("#baserecordtype") as HTMLInputElement;
+        return {
+          recordType: input?.value || null,
+          origin: window.location.origin || null,
+          location: window.location.href || null,
+          outerHTML: document.documentElement.outerHTML || null
+        };
+      }
+    });
+    const { recordType, origin, location, outerHTML } = (result[0].result!);
+    if (!origin || !location) {
+      fetched.value = true;
+      return;
     }
-  });
-  const { recordType, origin, location, outerHTML } = (result[0].result!);
-  if (!origin || !location) {
-    fetched.value = true;
-    return;
-  }
-  href.value = location || "";
-  netsuiteOrigin.value = getFixedOrigin(origin);
-  isSuitelet.value = /scriptlet\.nl\?script=\d+&deploy=\d+/.test(location || "");
-  if (isSuitelet.value) {
+    href.value = location || "";
+    netsuiteOrigin.value = getFixedOrigin(origin);
+    isSuitelet.value = /scriptlet\.nl\?script=\d+&deploy=\d+/.test(location || "");
+    if (isSuitelet.value) {
+      loading.value = true;
+      const { script, deploy } = getQuery<{ script: string, deploy: string }>(location || "");
+      if (script && deploy) {
+        const scriptId = parseInt(script);
+        const suiteletURL = `/app/common/scripting/script.nl?id=${scriptId}`;
+        const [suiteletResult, inlineSuitelets] = await Promise.all([
+          getSuitelet(outerHTML || "", { origin: netsuiteOrigin.value, scriptURL: suiteletURL }),
+          outerHTML ? getInlineSuitelets(outerHTML, { origin: netsuiteOrigin.value }) : Promise.resolve([])
+        ]);
+
+        suitelet.value = suiteletResult;
+        if (!suitelet.value) {
+          loading.value = false;
+          fetched.value = true;
+          return;
+        }
+
+        suitelets.value.push(suitelet.value);
+        if (inlineSuitelets.length) {
+          suitelets.value.push(...inlineSuitelets);
+        }
+      }
+      loading.value = false;
+      fetched.value = true;
+      return;
+    }
+    if (!recordType) {
+      fetched.value = true;
+      return;
+    }
+    recType.value = getQuery(location || "")?.rectype as string || null;
+    record.value = recordType;
     loading.value = true;
-    const { script, deploy } = getQuery<{ script: string, deploy: string }>(location || "");
-    if (script && deploy) {
-      const scriptId = parseInt(script);
-      const suiteletURL = `/app/common/scripting/script.nl?id=${scriptId}`;
-      const [suiteletResult, inlineSuitelets] = await Promise.all([
-        getSuitelet(outerHTML || "", { origin: netsuiteOrigin.value, scriptURL: suiteletURL }),
-        outerHTML ? getInlineSuitelets(outerHTML, { origin: netsuiteOrigin.value }) : Promise.resolve([])
-      ]);
-
-      suitelet.value = suiteletResult;
-      if (!suitelet.value) {
-        loading.value = false;
-        fetched.value = true;
-        return;
-      }
-
-      suitelets.value.push(suitelet.value);
-      if (inlineSuitelets.length) {
-        suitelets.value.push(...inlineSuitelets);
-      }
-    }
+    const scripts = await getScripts({ origin: netsuiteOrigin.value, recordType });
     loading.value = false;
     fetched.value = true;
-    return;
+    allScripts.value = scripts;
   }
-  if (!recordType) {
+  catch (e) {
+    loading.value = false;
     fetched.value = true;
-    return;
+    catchError.value = e instanceof Error ? e.message : String(e);
   }
-  recType.value = getQuery(location || "")?.rectype as string || null;
-  record.value = recordType;
-  loading.value = true;
-  const scripts = await getScripts({ origin: netsuiteOrigin.value, recordType });
-  loading.value = false;
-  fetched.value = true;
-  allScripts.value = scripts;
 });
 
 watchEffect(() => {
@@ -134,9 +159,9 @@ watchEffect(() => {
           </a>
         </span>
       </div>
-      <div v-if="!record && !isSuitelet" class="flex justify-center items-center gap-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <Icon icon="ph:newspaper-duotone" class="text-rose-500" height="32" />
-        <span class="text-lg font-semibold">Not a record page</span>
+      <div v-if="popupError" class="flex justify-center items-center gap-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Icon icon="ph:x-circle-duotone" class="text-rose-500" height="32" />
+        <span class="text-lg font-semibold">{{ popupError }}</span>
       </div>
       <div v-else-if="loading">
         <div class="flex justify-center items-center h-32 gap-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -181,10 +206,6 @@ watchEffect(() => {
             <Icon v-if="!copied" icon="ph:copy-duotone" class="text-slate-50" height="16" width="16" />
             <Icon v-else icon="ph:check" class="text-slate-50" height="16" width="16" />
           </button>
-        </div>
-        <div v-if="!userEventScripts.length && !clientScripts.length && !workflows.length && !suitelet && fetched" class="flex justify-center items-center h-32 gap-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Icon icon="ph:x-circle-duotone" class="text-rose-500" height="32" />
-          <span class="text-lg font-semibold">No scripts found</span>
         </div>
         <div v-if="suitelet" class="panel flex flex-col gap-1">
           <ScriptPanel :scripts="suitelets" :origin="netsuiteOrigin" :search="searchInput" :tab-id="tabId" />
