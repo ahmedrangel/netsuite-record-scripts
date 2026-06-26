@@ -24,7 +24,7 @@
     "cheerio": "^1.2.0",
     "ofetch": "^1.5.1",
     "tailwindcss": "^4.3.1",
-    "vue": "^3.5.38"
+    "vue": "^3.5.39"
   },
   "devDependencies": {
     "@btonasse/suitescript-types": "^2.4.1",
@@ -42,7 +42,7 @@
     "typescript": "6.0.3",
     "ufo": "^1.6.4",
     "vue-tsc": "^3.3.5",
-    "wxt": "^0.20.26"
+    "wxt": "^0.20.27"
   },
   "packageManager": "pnpm@11.8.0"
 }
