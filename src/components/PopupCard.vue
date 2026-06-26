@@ -169,7 +169,7 @@ watchEffect(() => {
           <span class="text-lg font-semibold">Loading...</span>
         </div>
       </div>
-      <TabGroup v-else-if="fetched && !loading">
+      <TabGroup v-if="fetched && !loading && (record || isSuitelet)">
         <TabList class="flex align-center justify-center gap-1 pb-1">
           <template v-for="(tab, i) in tabs" :key="i">
             <Tab v-slot="{ selected }" class="w-full rounded overflow-hidden cursor-pointer border border-violet-900" @click="filterInput?.focus()">
