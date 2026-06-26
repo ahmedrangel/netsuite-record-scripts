@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.3.6
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.3.5...v0.3.6)
+
+### 🩹 Fixes
+
+- Show TabGroup only when record or suitelet present ([d14e3bd](https://github.com/ahmedrangel/netsuite-record-scripts/commit/d14e3bd))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.3.5
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.3.4...v0.3.5)
