@@ -251,10 +251,10 @@ export const getScriptModules = async (html: string, options: { origin: string }
                   ],
                   columns: ["name", "internalid"]
                 }).run().getRange({ start: 0, end: 1 });
-
-                if (fileSearch?.length) {
-                  const fileResultName = fileSearch[0].getValue({ name: "name" }) as string;
-                  const fileResultId = fileSearch[0].getValue({ name: "internalid" }) as string;
+                const fileResult = fileSearch?.[0];
+                if (fileResult) {
+                  const fileResultName = fileResult.getValue({ name: "name" }) as string;
+                  const fileResultId = fileResult.getValue({ name: "internalid" }) as string;
                   resolveObject(fileResultName, fileResultId);
                   resolved = true;
                 }
@@ -284,10 +284,10 @@ export const getScriptModules = async (html: string, options: { origin: string }
                   filters,
                   columns: ["name", "internalid"]
                 }).run().getRange({ start: 0, end: 1 });
-
-                if (fileSearch?.length) {
-                  const fileResultName = fileSearch[0].getValue({ name: "name" }) as string;
-                  const fileResultId = fileSearch[0].getValue({ name: "internalid" }) as string;
+                const fileResult = fileSearch?.[0];
+                if (fileResult) {
+                  const fileResultName = fileResult.getValue({ name: "name" }) as string;
+                  const fileResultId = fileResult.getValue({ name: "internalid" }) as string;
                   resolveObject(fileResultName, fileResultId);
                   resolved = true;
                 }
