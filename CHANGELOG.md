@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.3.7
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.3.6...v0.3.7)
+
+### 🩹 Fixes
+
+- **PopupCard:** Add null safety checks ([3ba5979](https://github.com/ahmedrangel/netsuite-record-scripts/commit/3ba5979))
+- **editor:** Add redwood theme support and improve element styling ([f713bf7](https://github.com/ahmedrangel/netsuite-record-scripts/commit/f713bf7))
+
+### 💅 Refactors
+
+- File search result access ([d53dddd](https://github.com/ahmedrangel/netsuite-record-scripts/commit/d53dddd))
+
+### 🏡 Chore
+
+- **release:** V0.3.6 ([4323f7b](https://github.com/ahmedrangel/netsuite-record-scripts/commit/4323f7b))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.3.6
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.3.5...v0.3.6)
