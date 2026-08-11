@@ -63,7 +63,7 @@ onMounted(async () => {
         };
       }
     });
-    const { recordType, origin, location, outerHTML } = (result[0].result!);
+    const { recordType, origin, location, outerHTML } = (result?.[0]?.result || {});
     if (!origin || !location) {
       fetched.value = true;
       return;
@@ -119,7 +119,10 @@ onMounted(async () => {
 
 watchEffect(() => {
   if (allScripts.value.length) {
-    [userEventScripts.value, clientScripts.value, workflows.value] = allScripts.value;
+    const [userEvents, clients, workflowScripts] = allScripts.value;
+    userEventScripts.value = userEvents || [];
+    clientScripts.value = clients || [];
+    workflows.value = workflowScripts || [];
     if (extConfig.hideNotDeployed) {
       userEventScripts.value = userEventScripts.value.filter(s => s.deployed === true);
       clientScripts.value = clientScripts.value.filter(s => s.deployed === true);
