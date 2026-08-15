@@ -28,6 +28,7 @@
     "postinstall": "wxt prepare",
     "lint": "eslint . --config .config/eslint.mjs",
     "test:types": "tsc --noEmit",
+    "checks": "node --run lint && node --run test:types && node --run build",
     "release": "node --run checks && changelogen --release --no-github && git push --follow-tags",
     "release:github": "changelogen gh release",
     "cleaninstall": "rmdir /s/q node_modules && del /f/q pnpm-lock.yaml && pnpm install"
