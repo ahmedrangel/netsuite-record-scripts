@@ -1,0 +1,42 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    
+    steps:
+      - uses: actions/checkout@v7
+      - run: corepack enable
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: pnpm
+        
+      - name: 📦 Install dependencies
+        run: pnpm install
+        
+      - name: ⚡ Build
+        run: node --run build
+
+      - name: 📝 Create release notes
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node --run release:github
+        
+      - name: 📤 Publish assets
+        uses: softprops/action-gh-release@v3
+        with:
+          files: .output/*.zip
+          fail_on_unmatched_files: true
