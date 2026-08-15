@@ -3,11 +3,11 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
 import { Icon } from "@iconify/vue";
 import { getQuery } from "ufo";
 import ScriptPanel from "./ScriptPanel.vue";
-import NetsuiteRecordScriptsIcon from "./NetsuiteRecordScriptsIcon.vue";
 import ConfigModal from "./ConfigModal.vue";
 import { copyToClipboard, getCurrentTabId, getCustomizationURL, getFixedOrigin, getInlineSuitelets, getScripts, getSuitelet } from "@/utils/helpers";
 import { extConfig } from "@/utils/config";
-import { EXT, pkg } from "@/utils/constants";
+import { APP } from "@/utils/app.ts";
+import appIconURL from "@/assets/icon.svg";
 
 const tabId = ref<number>();
 const loading = ref(false);
@@ -146,21 +146,24 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="card justify-between flex flex-col">
+  <div class="w-150 h-150 max-h-150 py-0 px-2 justify-between flex flex-col">
     <div>
       <div class="px-1 py-1.5 text-lg font-semibold flex justify-between items-center">
-        <span class="flex justify-start items-center gap-2">
-          <NetsuiteRecordScriptsIcon height="30" />
-          <span class="uppercase">{{ EXT.name }}</span>
+        <div class="flex justify-start items-center gap-2">
+          <img :src="appIconURL" class="h-7.5" :alt="APP.name">
+          <span class="uppercase">{{ APP.name }}</span>
           <span title="Preferences" class="cursor-pointer hover:text-violet-900/82" @click="isModalOpen = true">
             <Icon icon="ph:gear-six-bold" height="24" />
           </span>
-        </span>
-        <span class="gh-icon">
-          <a :href="EXT.repository" target="_blank" rel="noopener noreferrer">
-            <Icon icon="simple-icons:github" height="26" />
+        </div>
+        <div class="flex items-center gap-2">
+          <a :href="APP.kofi" target="_blank" rel="noopener noreferrer" :title="`Support ${APP.author.name} on Ko-fi`">
+            <Icon icon="simple-icons:kofi" height="26" class="text-[#FF6433]" />
           </a>
-        </span>
+          <a :href="APP.repository" target="_blank" rel="noopener noreferrer" title="GitHub repository">
+            <Icon icon="simple-icons:github" height="26" class="text-black" />
+          </a>
+        </div>
       </div>
       <div v-if="popupError" class="flex justify-center items-center gap-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <Icon icon="ph:x-circle-duotone" class="text-rose-500" height="32" />
@@ -185,13 +188,14 @@ watchEffect(() => {
         </TabList>
         <div class="flex items-center justify-between mb-1 gap-px text-xs">
           <div class="flex items-center bg-slate-50 p-1.5 outline-1 -outline-offset-1 outline-violet-900/70 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 w-full rounded-l" :class="{ 'rounded-r': isSuitelet }">
-            <input ref="filterInput"
-                   v-model="searchInput"
-                   type="text"
-                   name="filter"
-                   class="block min-w-0 grow pr-3 pl-1 text-gray-900 placeholder:text-gray-500 focus:outline-none"
-                   placeholder="Type to filter..."
-                   :disabled="!userEventScripts.length && !clientScripts.length && !workflows.length && !suitelets.length && fetched"
+            <input
+              ref="filterInput"
+              v-model="searchInput"
+              type="text"
+              name="filter"
+              class="block min-w-0 grow pr-3 pl-1 text-gray-900 placeholder:text-gray-500 focus:outline-none"
+              placeholder="Type to filter..."
+              :disabled="!userEventScripts.length && !clientScripts.length && !workflows.length && !suitelets.length && fetched"
             >
             <div v-if="searchInput" class="grid shrink-0 grid-cols-1 focus-within:relative cursor-pointer" role="button" @click="searchInput = ''">
               <Icon icon="ph:x" class="text-rose-600" height="16" width="20" />
@@ -210,24 +214,26 @@ watchEffect(() => {
             <Icon v-else icon="ph:check" class="text-slate-50" height="16" width="16" />
           </button>
         </div>
-        <div v-if="suitelet" class="panel flex flex-col gap-1">
-          <ScriptPanel :scripts="suitelets" :origin="netsuiteOrigin" :search="searchInput" :tab-id="tabId" />
-        </div>
+        <TabPanels v-if="suitelet" class="relative overflow-hidden">
+          <TabPanel class="max-h-112.5 flex flex-col gap-1 overflow-x-hidden">
+            <ScriptPanel :scripts="suitelets" :origin="netsuiteOrigin" :search="searchInput" :tab-id="tabId" />
+          </TabPanel>
+        </TabPanels>
         <TabPanels v-else class="relative overflow-hidden">
-          <TabPanel v-for="(scripts, i) of [userEventScripts, clientScripts, workflows]" :key="i" class="panel flex flex-col gap-1">
+          <TabPanel v-for="(scripts, i) of [userEventScripts, clientScripts, workflows]" :key="i" class="max-h-112.5 flex flex-col gap-1 overflow-x-hidden">
             <ScriptPanel :scripts="scripts" :origin="netsuiteOrigin" :search="searchInput" :tab-id="tabId" />
           </TabPanel>
         </TabPanels>
       </TabGroup>
     </div>
-    <div class="py-2 text-xs">
+    <div class="text-center py-2 text-xs">
       <span>by</span>
       <span>&nbsp;</span>
       <span class="hover:underline">
-        <a :href="EXT.owner.github" target="_blank" rel="noopener noreferrer" class="hover:underline">{{ EXT.owner.name }}</a>
+        <a :href="APP.author.github" target="_blank" rel="noopener noreferrer" class="hover:underline">{{ APP.author.name }}</a>
       </span>
       <span class="hover:underline">
-        (<a :href="EXT.webstore.chrome" target="_blank" rel="noopener noreferrer" class="hover:underline">v{{ pkg.version }}</a>)
+        (<a :href="APP.webstore.chrome" target="_blank" rel="noopener noreferrer" class="hover:underline">v{{ APP.version }}</a>)
       </span>
     </div>
   </div>

@@ -2,7 +2,7 @@ import { resolve } from "node:path";
 import { mkdir, readdir } from "node:fs/promises";
 import { defineConfig } from "wxt";
 import tailwindcss from "@tailwindcss/vite";
-import { pkg } from "../src/utils/constants";
+import { APP } from "../src/utils/app";
 
 await readdir(".wxt").catch(() => mkdir(".wxt"));
 await readdir(".wxt/chrome-data").catch(() => mkdir(".wxt/chrome-data"));
@@ -12,9 +12,9 @@ export default defineConfig({
   modules: ["@wxt-dev/module-vue", "@wxt-dev/auto-icons"],
   srcDir: "src",
   manifest: {
-    name: pkg.title,
-    description: pkg.description,
-    version: pkg.version,
+    name: APP.name,
+    description: APP.description,
+    version: APP.version,
     action: {},
     permissions: ["activeTab", "scripting", "storage"],
     host_permissions: ["https://*.netsuite.com/*"]

@@ -1,10 +1,22 @@
 {
   "name": "netsuite-record-scripts",
   "title": "NetSuite Record Scripts",
-  "description": "Instantly view all scripts deployed on a NetSuite record with just one click!",
+  "description": "Instantly view all scripts deployed on a NetSuite Record or Suitelet with just one click!",
   "private": true,
   "version": "0.3.7",
   "type": "module",
+  "license": "MIT",
+  "author": {
+    "name": "Ahmed Rangel",
+    "email": "ahmedrangel@outlook.com",
+    "url": "https://ahmedrangel.com"
+  },
+  "homepage": "https://github.com/ahmedrangel/netsuite-record-scripts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmedrangel/netsuite-record-scripts.git"
+  },
+  "bugs": "https://github.com/ahmedrangel/netsuite-record-scripts/issues",
   "scripts": {
     "dev": "wxt --config .config/wxt.ts",
     "dev:firefox": "wxt -b firefox",
@@ -32,7 +44,7 @@
   "devDependencies": {
     "@btonasse/suitescript-types": "^2.4.1",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@types/chrome": "^0.2.5",
+    "@types/chrome": "^0.2.6",
     "@vue/eslint-config-typescript": "^14.9.0",
     "@wxt-dev/auto-icons": "^1.1.2",
     "@wxt-dev/module-vue": "^1.0.3",
@@ -44,9 +56,9 @@
     "iconify-browser-cache": "^0.4.0",
     "typescript": "6.0.3",
     "ufo": "^1.6.4",
-    "vue-tsc": "^3.3.9",
+    "vue-tsc": "^3.3.10",
     "web-ext": "^10.6.0",
     "wxt": "^0.21.4"
   },
-  "packageManager": "pnpm@11.8.0"
+  "packageManager": "pnpm@11.22.0"
 }
