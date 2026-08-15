@@ -1,6 +1,28 @@
 # Changelog
 
 
+## v0.3.8
+
+[compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.3.7...v0.3.8)
+
+### 🚀 Enhancements
+
+- Centralize app metadata, assets and links ([6f2ceb3](https://github.com/ahmedrangel/netsuite-record-scripts/commit/6f2ceb3))
+
+### 🏡 Chore
+
+- Add vscode eslint settings ([ee2922c](https://github.com/ahmedrangel/netsuite-record-scripts/commit/ee2922c))
+- **package:** Add checks script ([8bf8dd5](https://github.com/ahmedrangel/netsuite-record-scripts/commit/8bf8dd5))
+
+### 🤖 CI
+
+- Add gitHub workflows and release scripts ([a4c1f66](https://github.com/ahmedrangel/netsuite-record-scripts/commit/a4c1f66))
+- **release:** Run zip step in workflow ([ba762d5](https://github.com/ahmedrangel/netsuite-record-scripts/commit/ba762d5))
+
+### ❤️ Contributors
+
+- Ahmed Rangel ([@ahmedrangel](https://github.com/ahmedrangel))
+
 ## v0.3.7
 
 [compare changes](https://github.com/ahmedrangel/netsuite-record-scripts/compare/v0.3.6...v0.3.7)
